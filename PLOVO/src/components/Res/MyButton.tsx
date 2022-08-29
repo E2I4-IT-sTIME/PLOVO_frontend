@@ -3,12 +3,13 @@ import styled from "styled-components/native";
 
 interface titleProps {
   title: string;
+  onPress: () => void;
 }
 
 export default function MyButton(props: titleProps) {
-  const { title } = props;
+  const { title, onPress } = props;
   return (
-    <Box>
+    <Box onPress={() => onPress()}>
       <Title>{title}</Title>
     </Box>
   );
@@ -16,8 +17,8 @@ export default function MyButton(props: titleProps) {
 
 const Box = styled(TouchableOpacity)`
   background-color: white;
-  width: 100%;
-  height: 60px;
+  width: 90%;
+  height: 50px;
   border-radius: 30px;
   justify-content: center;
   align-items: center;
@@ -27,6 +28,6 @@ const Box = styled(TouchableOpacity)`
 
 const Title = styled(Text)`
   color: black;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 900;
 `;

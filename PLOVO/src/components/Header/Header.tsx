@@ -19,6 +19,7 @@ const HeaderBox = styled(View)`
   height: 70px;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 `;
 
 const Title = styled(Text)`
