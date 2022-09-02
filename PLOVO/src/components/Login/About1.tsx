@@ -1,4 +1,4 @@
-import { View,  Image,  StyleSheet, Text } from "react-native";
+import { View,  Image,  StyleSheet, Text, Dimensions } from "react-native";
 import aboutImg1 from "../../img/about1.png";
 
 const About1 = () => {
@@ -8,7 +8,7 @@ const About1 = () => {
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
-                <Image source={aboutImg1} style={{width: 305, height:305}} />
+                <Image style={styles.img} source={aboutImg1} style={{width: 305, height:305}} />
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.sub}>{sub}</Text>
             </View>
@@ -19,6 +19,7 @@ const About1 = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: Dimensions.get('window').width,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -26,15 +27,24 @@ const styles = StyleSheet.create({
     },
     logoArea: {
         flex: 0.8,
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red',
+        backgroundColor: 'white',
     },
-    title: {
+    img: {
         
     },
+    title: {
+        width: '100%',
+        textAlign: 'right',
+        fontWeight: '600',
+        fontSize: 30
+    },
     sub:{
-
+        width: '100%',
+        textAlign: 'right',
+        fontSize: 15
     },
 });
 
