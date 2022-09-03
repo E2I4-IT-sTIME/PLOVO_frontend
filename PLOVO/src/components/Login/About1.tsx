@@ -8,9 +8,11 @@ const About1 = () => {
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
-                <Image style={styles.img} source={aboutImg1} style={{width: 305, height:305}} />
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.sub}>{sub}</Text>
+                <Image style={styles.img} source={aboutImg1}/>
+                <View style={styles.textbox}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.sub}>{sub}</Text>
+                </View>
             </View>
         </View>
     );
@@ -26,25 +28,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#277BC0'
     },
     logoArea: {
-        flex: 0.8,
+        flex: 0.7,
         width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
     },
     img: {
-        
+        width: 320, 
+        height: 260,
+    },
+    textbox: {
+        width:'90%',        
     },
     title: {
         width: '100%',
         textAlign: 'right',
-        fontWeight: '600',
-        fontSize: 30
+        fontWeight: '700',
+        fontSize: 30,
+        color:'white',
+        marginBottom: 15
     },
     sub:{
         width: '100%',
         textAlign: 'right',
-        fontSize: 15
+        fontWeight: '400',
+        fontSize: 20,
+        color:'white'
     },
 });
 

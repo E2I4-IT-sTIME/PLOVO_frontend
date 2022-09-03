@@ -7,9 +7,8 @@ const LoginScreen = () => {
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
-                <Image source={logo} style={{width: 150, height:150}} />
+                <Image source={logo} style={styles.img} />
                 <Text style={styles.title}>{title}</Text>
-
                 <Button title="구글 로그인" />
                 <Button title="카카오 로그인" />
                 <Text>이용약관</Text>
@@ -34,6 +33,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'red',
+    },
+    img: {
+        width: 150, 
+        height:150,
+        position: "absolute", left: 0, right: 0
     },
     title: {
         width:'100%',
