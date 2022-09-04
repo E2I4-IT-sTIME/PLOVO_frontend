@@ -1,8 +1,12 @@
-import { View,  Image,  StyleSheet, Text, Button, Dimensions } from "react-native";
+import { View,  Image,  StyleSheet, Text, Button, Dimensions, TouchableOpacity } from "react-native";
 import logo from "../../img/logo.png";
+import kakao from "../../img/kakao.png";
+import google from "../../img/google.png";
+import SocialButton from "./SocialButton";
 
 const LoginScreen = () => {
     const title = "플로깅을 새롭게,\n나의 일상을 건강하게-";
+    const sub = "이용약관\n개인정보 처리 방침"
 
     return(
         <View style={styles.container}>
@@ -12,11 +16,20 @@ const LoginScreen = () => {
                     <Text style={styles.title}>{title}</Text>
                 </View>                
                 <View style={styles.view2}>
-                    <Button title="구글 로그인" />
-                    <Button title="카카오 로그인" />
+                     <SocialButton 
+                        text = "Sign in with Google"
+                        src = {google}
+                        onPress={() => {}}
+                        buttonStyle={styles.google}
+                     />
+                     <SocialButton 
+                        text = "Login with Kakao"
+                        src = {kakao}
+                        onPress={() => {}}
+                        buttonStyle={styles.kakao}
+                     />
                     <View style={styles.textbox}>
-                        <Text style={styles.sub}>이용약관</Text>
-                        <Text style={styles.sub}>개인정보 처리 방침</Text>
+                        <Text style={styles.sub}>{sub}</Text>
                     </View>
                 </View>          
             </View>
@@ -47,20 +60,19 @@ const styles = StyleSheet.create({
     view2: {
         flex:1,
         justifyContent: 'center',
-        width:'50%', 
+        width:'65%', 
     },
     img: {
         width: 200, 
         height:200,
-    },
-    textbox: {
-        marginTop:20
+        marginRight: 20
     },
     title: {
         width:'100%',
         textAlign: 'center',
         fontSize: 24,
         color:'white',
+        marginLeft: 10
     },
     sub:{
         width:'100%',
@@ -69,6 +81,12 @@ const styles = StyleSheet.create({
         color:'white',
         fontStyle: 'light'
     },
+    google:{
+        backgroundColor:'white',
+    },
+    kakao: {
+        backgroundColor:'#FEE500',
+    }
 });
 
 export default LoginScreen;
