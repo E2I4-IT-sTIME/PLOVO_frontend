@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { useFonts } from "expo-font";
 import styled from "styled-components/native";
 import Plog from "./src/pages/Plog";
+import Plogging from "./src/pages/Plogging";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,7 +13,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" backgroundColor="black" />
-      <Plog />
+      {/* <Plog /> */}
+      <Plogging />
     </View>
   );
 }
