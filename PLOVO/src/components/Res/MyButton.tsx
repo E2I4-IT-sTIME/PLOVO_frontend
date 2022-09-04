@@ -17,7 +17,7 @@ export default function MyButton(props: titleProps) {
 
 const Box = styled(TouchableOpacity)`
   background-color: white;
-  width: 90%;
+  width: 80%;
   height: 50px;
   border-radius: 30px;
   justify-content: center;
@@ -28,6 +28,6 @@ const Box = styled(TouchableOpacity)`
 
 const Title = styled(Text)`
   color: black;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
 `;

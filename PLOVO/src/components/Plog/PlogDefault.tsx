@@ -20,14 +20,13 @@ export default function PlogDefault(props: stageProps) {
   );
 }
 
-const Container = styled(View)`
-  padding: 10px 20px 0px 20px;
-`;
+const Container = styled(View)``;
 
 const Title = styled(Text)`
   color: white;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 800;
+  padding: 0px 0px 0px 20px;
 `;
 
 const ButtonBox = styled(View)`
