@@ -53,13 +53,13 @@ export default function PlogRecommend(props: stageProps) {
 }
 
 const Container = styled.View<{ screenHeight: number }>`
-  height: ${(props) => `${props.screenHeight - 70}px`};
+  height: ${(props) => `${props.screenHeight - 70}`}px;
   justify-content: space-between;
   padding-bottom: 80px;
 `;
 
 const Title = styled.Text`
-  color: white;
+  color: #ffffff;
   font-size: 28px;
   font-weight: 800;
   padding: 0px 0px 0px 20px;
