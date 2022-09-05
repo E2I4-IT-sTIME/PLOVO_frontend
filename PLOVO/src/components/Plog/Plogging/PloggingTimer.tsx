@@ -3,8 +3,35 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { useState, useEffect, useRef } from "react";
 
 export default function PloggingTimer() {
-  const [timer, setTimer] = useState(0);
   const [timerState, setTimerState] = useState("Timer");
+  const [sec, setSec] = useState(0);
+  const [min, setMin] = useState(0);
+  const [hour, setHour] = useState(0);
+  const [curTimer, setCurTime] = useState("00 : 00 : 00");
+
+  const timer = () => {
+    if (sec < 60) {
+      setSec((prev) => prev + 1);
+    } else if (sec === 60 && min < 60) {
+      setSec(0);
+      setMin((prev) => prev + 1);
+    } else if (sec === 60 && min === 60) {
+      setSec(0);
+      setSec(0);
+      setHour((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    let secString = "";
+    if (sec < 10) {
+    }
+  }, [sec, min, hour]);
+
+  useInterval(() => {
+    timer();
+  }, 1000);
+
   return (
     <Container>
       <View>
