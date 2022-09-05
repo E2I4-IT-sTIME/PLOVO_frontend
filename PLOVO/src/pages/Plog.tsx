@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Header from "../components/Header/Header";
 import PlogLayout from "../components/Plog/PlogLayout";
 
+//네비게이션 두 번째인 Plog 부분을 담당할 페이지
 export default function Plog() {
   return (
     <LinearGradient

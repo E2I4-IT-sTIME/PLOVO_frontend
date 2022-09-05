@@ -13,9 +13,9 @@ export default function PlogLayout() {
       {stage === 0 ? (
         <PlogDefault setStage={setStage} />
       ) : stage === 1 ? (
-        <PlogSearch />
+        <PlogSearch setStage={setStage} />
       ) : stage === 2 ? (
-        <PlogRecommend />
+        <PlogRecommend setStage={setStage} />
       ) : (
         <></>
       )}
