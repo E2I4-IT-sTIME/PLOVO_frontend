@@ -106,11 +106,10 @@ const Container = styled.View`
 
 const Indicator = styled.View<{ focused: boolean }>`
   margin: 0px 4px;
-  background-color: white;
-  width: ${(props) => (props.focused ? "12px" : "6px")};
+  background-color: #ffffff;
+  width: ${(props) => (props.focused ? 12 : 6)}px;
   height: 6px;
   border-radius: 3px;
-  transition: all 0.15s;
 `;
 
 const IndicatorWrapper = styled.View`

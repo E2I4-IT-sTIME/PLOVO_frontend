@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
 import { ViewStyle } from "react-native";
-import { StyleSheet, Text, View, Image } from "react-native";
 
 interface RecommendCard {
   name: string; //산이름
@@ -52,7 +51,7 @@ export default function Page(props: IPage) {
 }
 
 const PageItem = styled.View`
-  background-color: white;
+  background-color: #ffffff;
   padding: 10px;
   border-radius: 20px;
   flex-direction: row;
@@ -96,23 +95,4 @@ const Mountain = styled.Text<{ color: string }>`
   color: ${(props) => props.color};
   position: absolute;
   bottom: 35px;
-`;
-
-const Triangle = styled.View<{
-  lightColor: string;
-  mainColor: string;
-  darkColor: string;
-}>`
-  /* background-color: ${(props) => props.lightColor}; */
-
-  width: 0;
-  height: 0;
-  border-left-width: 30px;
-  border-right-width: 30px;
-  border-bottom-width: 50px;
-  border-style: "solid";
-  background-color: "#00ff0000";
-  border-left-color: "#00ff0000";
-  border-right-color: "#00ff0000";
-  border-bottom-color: ${(props) => props.lightColor};
 `;
