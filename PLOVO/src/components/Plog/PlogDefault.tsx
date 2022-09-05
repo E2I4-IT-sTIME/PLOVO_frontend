@@ -20,16 +20,16 @@ export default function PlogDefault(props: stageProps) {
   );
 }
 
-const Container = styled(View)``;
+const Container = styled.View``;
 
-const Title = styled(Text)`
+const Title = styled.Text`
   color: white;
   font-size: 28px;
   font-weight: 800;
   padding: 0px 0px 0px 20px;
 `;
 
-const ButtonBox = styled(View)`
+const ButtonBox = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: 30px;

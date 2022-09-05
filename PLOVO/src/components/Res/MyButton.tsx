@@ -15,7 +15,7 @@ export default function MyButton(props: titleProps) {
   );
 }
 
-const Box = styled(TouchableOpacity)`
+const Box = styled.TouchableOpacity`
   background-color: white;
   width: 80%;
   height: 50px;
@@ -26,7 +26,7 @@ const Box = styled(TouchableOpacity)`
   margin-bottom: 20px;
 `;
 
-const Title = styled(Text)`
+const Title = styled.Text`
   color: black;
   font-size: 18px;
   font-weight: 900;

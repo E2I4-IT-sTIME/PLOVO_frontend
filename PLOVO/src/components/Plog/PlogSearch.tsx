@@ -42,7 +42,7 @@ export default function PlogSearch(props: stageProps) {
           <InputBox
             placeholder="산 이름을 입력해주세요."
             placeholderTextColor="#ffffff89"
-            onChangeText={(text) => {
+            onChangeText={(text: string) => {
               setKeyword(text);
             }}
             value={keyword}
@@ -62,24 +62,24 @@ export default function PlogSearch(props: stageProps) {
   );
 }
 
-const Container = styled(View)`
+const Container = styled.View`
   /* padding: 10px 20px 0px 20px; */
 `;
 
-const Title = styled(Text)`
+const Title = styled.Text`
   color: white;
   font-size: 28px;
   font-weight: 800;
   padding: 0px 0px 0px 20px;
 `;
 
-const ButtonBox = styled(View)`
+const ButtonBox = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: 30px;
 `;
 
-const CoverBox = styled(View)`
+const CoverBox = styled.View`
   flex-direction: column;
   width: 90%;
   align-items: start;
@@ -88,7 +88,7 @@ const CoverBox = styled(View)`
   margin: auto;
 `;
 
-const SearchBox = styled(View)`
+const SearchBox = styled.View`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
@@ -96,7 +96,7 @@ const SearchBox = styled(View)`
   align-items: center;
 `;
 
-const InputBox = styled(TextInput)`
+const InputBox = styled.TextInput`
   border: 2px solid white;
   border-radius: 10px;
   width: 75%;
@@ -106,7 +106,7 @@ const InputBox = styled(TextInput)`
   font-size: 18px;
 `;
 
-const SearchBtn = styled(TouchableOpacity)`
+const SearchBtn = styled.TouchableOpacity`
   width: 20%;
   height: 35px;
   background-color: white;
@@ -115,12 +115,12 @@ const SearchBtn = styled(TouchableOpacity)`
   align-items: center;
 `;
 
-const BtnTitle = styled(Text)`
+const BtnTitle = styled.Text`
   font-size: 14px;
   font-weight: 600;
 `;
 
-const ErrMsg = styled(Text)`
+const ErrMsg = styled.Text`
   font-size: 14px;
   font-weight: 400;
   color: white;

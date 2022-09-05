@@ -51,7 +51,7 @@ export default function Page(props: IPage) {
   );
 }
 
-const PageItem = styled(View)`
+const PageItem = styled.View`
   background-color: white;
   padding: 10px;
   border-radius: 20px;
@@ -60,37 +60,37 @@ const PageItem = styled(View)`
   align-items: center;
 `;
 
-const InfoBox = styled(View)`
+const InfoBox = styled.View`
   height: 100%;
   align-items: start;
   justify-content: center;
 `;
 
-const Title = styled(Text)`
+const Title = styled.Text`
   font-size: 14px;
   font-weight: 300;
   padding-bottom: 3px;
 `;
 
-const Info = styled(Text)`
+const Info = styled.Text`
   font-size: 20px;
   font-weight: 700;
   padding-bottom: 8px;
 `;
 
-const CircleBox = styled(View)`
+const CircleBox = styled.View`
   width: 150px;
   height: 150px;
   position: relative;
   align-items: center;
 `;
 
-const Circle = styled(Image)`
+const Circle = styled.Image`
   width: 100%;
   height: 100%;
 `;
 
-const Mountain = styled(Text)<{ color: string }>`
+const Mountain = styled.Text<{ color: string }>`
   font-size: 20px;
   font-weight: 900;
   color: ${(props) => props.color};
@@ -98,7 +98,7 @@ const Mountain = styled(Text)<{ color: string }>`
   bottom: 35px;
 `;
 
-const Triangle = styled(View)<{
+const Triangle = styled.View<{
   lightColor: string;
   mainColor: string;
   darkColor: string;
