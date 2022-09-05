@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
 import styled from "styled-components/native";
 import MyButton from "../Res/MyButton";
@@ -12,6 +13,7 @@ import SearchResult from "./SearchResult";
 
 interface stageProps {
   setStage: Dispatch<SetStateAction<number>>;
+  moveToPlogging: (name: string) => void;
 }
 
 interface Result {
@@ -20,10 +22,11 @@ interface Result {
 }
 
 export default function PlogSearch(props: stageProps) {
-  const { setStage } = props;
+  const { setStage, moveToPlogging } = props;
   const [keyword, setKeyword] = useState("");
   const [err, setErr] = useState("");
   const [results, setResults] = useState<Array<Result>>([]);
+  const [choice, setChoice] = useState("");
   const search = () => {
     if (keyword.length > 1) {
       //검색
@@ -34,6 +37,22 @@ export default function PlogSearch(props: stageProps) {
     }
   };
 
+  const moveBtnClickHandler = () => {
+    if (choice === "") {
+      alert();
+    } else {
+      moveToPlogging(choice);
+      setChoice("");
+    }
+  };
+
+  const alert = () =>
+    Alert.alert(
+      "산을 선택해주세요",
+      "선택한 산이 없네요.\n산을 선택해주세요!",
+      [{ text: "닫기", onPress: () => {} }]
+    );
+
   return (
     <Container>
       <Title>{"산 이름으로 검색해요."}</Title>
@@ -42,7 +61,7 @@ export default function PlogSearch(props: stageProps) {
           <InputBox
             placeholder="산 이름을 입력해주세요."
             placeholderTextColor="#ffffff89"
-            onChangeText={(text) => {
+            onChangeText={(text: string) => {
               setKeyword(text);
             }}
             value={keyword}
@@ -55,31 +74,34 @@ export default function PlogSearch(props: stageProps) {
       </CoverBox>
       <SearchResult resultArray={results} />
       <ButtonBox>
-        <MyButton title="이 산으로 할게요" onPress={() => setStage(0)} />
+        <MyButton
+          title="이 산으로 할게요"
+          onPress={() => moveBtnClickHandler()}
+        />
         <MyButton title="추천해주세요" onPress={() => setStage(2)} />
       </ButtonBox>
     </Container>
   );
 }
 
-const Container = styled(View)`
+const Container = styled.View`
   /* padding: 10px 20px 0px 20px; */
 `;
 
-const Title = styled(Text)`
+const Title = styled.Text`
   color: white;
   font-size: 28px;
   font-weight: 800;
   padding: 0px 0px 0px 20px;
 `;
 
-const ButtonBox = styled(View)`
+const ButtonBox = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: 30px;
 `;
 
-const CoverBox = styled(View)`
+const CoverBox = styled.View`
   flex-direction: column;
   width: 90%;
   align-items: start;
@@ -88,7 +110,7 @@ const CoverBox = styled(View)`
   margin: auto;
 `;
 
-const SearchBox = styled(View)`
+const SearchBox = styled.View`
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
@@ -96,7 +118,7 @@ const SearchBox = styled(View)`
   align-items: center;
 `;
 
-const InputBox = styled(TextInput)`
+const InputBox = styled.TextInput`
   border: 2px solid white;
   border-radius: 10px;
   width: 75%;
@@ -106,7 +128,7 @@ const InputBox = styled(TextInput)`
   font-size: 18px;
 `;
 
-const SearchBtn = styled(TouchableOpacity)`
+const SearchBtn = styled.TouchableOpacity`
   width: 20%;
   height: 35px;
   background-color: white;
@@ -115,12 +137,12 @@ const SearchBtn = styled(TouchableOpacity)`
   align-items: center;
 `;
 
-const BtnTitle = styled(Text)`
+const BtnTitle = styled.Text`
   font-size: 14px;
   font-weight: 600;
 `;
 
-const ErrMsg = styled(Text)`
+const ErrMsg = styled.Text`
   font-size: 14px;
   font-weight: 400;
   color: white;

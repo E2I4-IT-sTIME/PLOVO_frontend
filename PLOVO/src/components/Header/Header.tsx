@@ -14,7 +14,7 @@ export default function Header(props: headerProps) {
   );
 }
 
-const HeaderBox = styled(View)`
+const HeaderBox = styled.View`
   width: 100%;
   height: 60px;
   justify-content: center;
@@ -22,7 +22,7 @@ const HeaderBox = styled(View)`
   margin-top: 20px;
 `;
 
-const Title = styled(Text)`
+const Title = styled.Text`
   color: white;
   font-size: 24px;
   font-weight: 800;
