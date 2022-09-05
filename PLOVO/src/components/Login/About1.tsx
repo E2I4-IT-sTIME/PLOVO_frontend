@@ -1,4 +1,4 @@
-import { View,  Image,  StyleSheet, Text } from "react-native";
+import { View,  Image,  StyleSheet, Text, Dimensions } from "react-native";
 import aboutImg1 from "../../img/about1.png";
 
 const About1 = () => {
@@ -8,9 +8,11 @@ const About1 = () => {
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
-                <Image source={aboutImg1} style={{width: 305, height:305}} />
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.sub}>{sub}</Text>
+                <Image style={styles.img} source={aboutImg1}/>
+                <View style={styles.textbox}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.sub}>{sub}</Text>
+                </View>
             </View>
         </View>
     );
@@ -19,22 +21,39 @@ const About1 = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: Dimensions.get('window').width,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#277BC0'
     },
     logoArea: {
-        flex: 0.8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'red',
+        flex: 0.7,
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
+    img: {
+        width: 320, 
+        height: 260,
+    },
+    textbox: {
+        width:'90%',        
     },
     title: {
-        
+        width: '100%',
+        textAlign: 'right',
+        fontWeight: '700',
+        fontSize: 30,
+        color:'white',
+        marginBottom: 15
     },
     sub:{
-
+        width: '100%',
+        textAlign: 'right',
+        fontWeight: '400',
+        fontSize: 20,
+        color:'white'
     },
 });
 
