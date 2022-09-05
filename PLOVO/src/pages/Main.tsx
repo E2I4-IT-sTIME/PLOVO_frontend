@@ -4,7 +4,7 @@ import Plog from "../pages/Plog";
 import Social from "../pages/Social";
 import Record from "../pages/Record";
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
+import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 
 //로그인 후 모든 화면의 기준이 되는 레이아웃 페이지
 export default function Main() {
@@ -17,6 +17,13 @@ export default function Main() {
         component={Home}
         options={{
           headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="home"
+              style={{ color: focused ? "#277BC0" : "#404040" }}
+              size={24}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -24,6 +31,13 @@ export default function Main() {
         component={Plog}
         options={{
           headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome5
+              name="play"
+              style={{ color: focused ? "#277BC0" : "#404040" }}
+              size={24}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -31,6 +45,13 @@ export default function Main() {
         component={Social}
         options={{
           headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <AntDesign
+              name="profile"
+              style={{ color: focused ? "#277BC0" : "#404040" }}
+              size={24}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -38,6 +59,13 @@ export default function Main() {
         component={Record}
         options={{
           headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name="person"
+              style={{ color: focused ? "#277BC0" : "#404040" }}
+              size={24}
+            />
+          ),
         }}
       />
     </Tab.Navigator>

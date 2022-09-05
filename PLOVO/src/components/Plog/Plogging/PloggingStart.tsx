@@ -1,17 +1,13 @@
-import { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
+import { Dispatch, SetStateAction } from "react";
+import { StyleSheet, Text } from "react-native";
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface startProps {
   name: string;
+  goBack: () => void;
+  setStage: Dispatch<SetStateAction<number>>;
 }
 
 interface PlogData {
@@ -32,7 +28,7 @@ const screenWidth = Math.round(Dimensions.get("window").width);
 const screenHeight = Math.round(Dimensions.get("window").height);
 
 export default function PloggingStart(props: startProps) {
-  const { name } = props;
+  const { name, goBack, setStage } = props;
   return (
     <Container>
       <Background source={{ uri: dummy.img }} resizeMode="cover" />
@@ -51,10 +47,10 @@ export default function PloggingStart(props: startProps) {
           style={styles.container}
           colors={["#ffffff00", "#277BC0"]}
         >
-          <CustomButton type={true}>
+          <CustomButton type={true} onPress={() => setStage(1)}>
             <CustomTitle type={true}>플로깅 시작하기</CustomTitle>
           </CustomButton>
-          <CustomButton type={false}>
+          <CustomButton type={false} onPress={() => goBack()}>
             <CustomTitle type={false}>뒤로가기</CustomTitle>
           </CustomButton>
           <NoticeTitle>
@@ -74,7 +70,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Container = styled(View)`
+const Container = styled.View`
   width: ${screenWidth}px;
   height: ${screenHeight}px;
   flex-direction: column;
@@ -82,19 +78,19 @@ const Container = styled(View)`
   position: relative;
 `;
 
-const Background = styled(ImageBackground)`
+const Background = styled.ImageBackground`
   width: 100%;
   height: 100%;
   z-index: 0;
   position: absolute;
 `;
 
-const BottomBox = styled(View)`
+const BottomBox = styled.View`
   width: 100%;
   height: 90%;
 `;
 
-const CustomButton = styled(TouchableOpacity)<{ type: boolean }>`
+const CustomButton = styled.TouchableOpacity<{ type: boolean }>`
   width: 70%;
   height: 65px;
   border-radius: 10px;
@@ -105,13 +101,13 @@ const CustomButton = styled(TouchableOpacity)<{ type: boolean }>`
   margin-bottom: 20px;
 `;
 
-const CustomTitle = styled(Text)<{ type: boolean }>`
+const CustomTitle = styled.Text<{ type: boolean }>`
   font-size: 26px;
   font-weight: 900;
   color: ${(props) => (props.type ? "white" : "#277BC0")};
 `;
 
-const NoticeTitle = styled(Text)`
+const NoticeTitle = styled.Text`
   color: white;
   font-size: 16px;
   font-weight: 600;
@@ -119,7 +115,7 @@ const NoticeTitle = styled(Text)`
   margin-bottom: 50px;
 `;
 
-const HoverBox = styled(View)`
+const HoverBox = styled.View`
   width: 70%;
   height: 160px;
   background-color: #ffffffce;

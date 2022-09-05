@@ -28,7 +28,7 @@ export default function SearchResult(props: SearchProps) {
   );
 }
 
-const Container = styled(ScrollView)`
+const Container = styled.ScrollView`
   width: 90%;
   height: ${screenHeight * 0.3}px;
   margin: auto;
@@ -36,14 +36,14 @@ const Container = styled(ScrollView)`
   border-radius: 10px;
 `;
 
-const Non = styled(View)`
+const Non = styled.View`
   width: 100%;
   height: ${screenHeight * 0.3}px;
   align-items: center;
   justify-content: center;
 `;
 
-const NonText = styled(Text)`
+const NonText = styled.Text`
   text-align: center;
   font-size: 18px;
   font-weight: 700;
