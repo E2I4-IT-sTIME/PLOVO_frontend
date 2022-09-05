@@ -7,6 +7,7 @@ import PlogRecommendCarousel from "./PlogRecommendCarousel";
 
 interface stageProps {
   setStage: Dispatch<SetStateAction<number>>;
+  moveToPlogging: (name: string) => void;
 }
 
 interface RecommendCard {
@@ -24,7 +25,7 @@ const dummy: Array<RecommendCard> = [
 ];
 
 export default function PlogRecommend(props: stageProps) {
-  const { setStage } = props;
+  const { setStage, moveToPlogging } = props;
   const screenWidth = Math.round(Dimensions.get("window").width);
   const screenHeight = Math.round(Dimensions.get("window").height);
   const [page, setPage] = useState(0);
@@ -43,7 +44,7 @@ export default function PlogRecommend(props: stageProps) {
       <ButtonBox>
         <MyButton
           title={`${dummy[page].name}으로 할게요`}
-          onPress={() => setStage(0)}
+          onPress={() => moveToPlogging(dummy[page].name)}
         />
         <MyButton title="직접 검색할게요" onPress={() => setStage(1)} />
       </ButtonBox>

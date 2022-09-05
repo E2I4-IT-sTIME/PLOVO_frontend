@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
 import styled from "styled-components/native";
 import MyButton from "../Res/MyButton";
@@ -12,6 +13,7 @@ import SearchResult from "./SearchResult";
 
 interface stageProps {
   setStage: Dispatch<SetStateAction<number>>;
+  moveToPlogging: (name: string) => void;
 }
 
 interface Result {
@@ -20,10 +22,11 @@ interface Result {
 }
 
 export default function PlogSearch(props: stageProps) {
-  const { setStage } = props;
+  const { setStage, moveToPlogging } = props;
   const [keyword, setKeyword] = useState("");
   const [err, setErr] = useState("");
   const [results, setResults] = useState<Array<Result>>([]);
+  const [choice, setChoice] = useState("");
   const search = () => {
     if (keyword.length > 1) {
       //검색
@@ -33,6 +36,22 @@ export default function PlogSearch(props: stageProps) {
       setErr("검색어가 너무 짧습니다.");
     }
   };
+
+  const moveBtnClickHandler = () => {
+    if (choice === "") {
+      alert();
+    } else {
+      moveToPlogging(choice);
+      setChoice("");
+    }
+  };
+
+  const alert = () =>
+    Alert.alert(
+      "산을 선택해주세요",
+      "선택한 산이 없네요.\n산을 선택해주세요!",
+      [{ text: "닫기", onPress: () => {} }]
+    );
 
   return (
     <Container>
@@ -55,7 +74,10 @@ export default function PlogSearch(props: stageProps) {
       </CoverBox>
       <SearchResult resultArray={results} />
       <ButtonBox>
-        <MyButton title="이 산으로 할게요" onPress={() => setStage(0)} />
+        <MyButton
+          title="이 산으로 할게요"
+          onPress={() => moveBtnClickHandler()}
+        />
         <MyButton title="추천해주세요" onPress={() => setStage(2)} />
       </ButtonBox>
     </Container>
