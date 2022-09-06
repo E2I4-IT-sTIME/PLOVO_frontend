@@ -3,6 +3,7 @@ import { useFonts } from "expo-font";
 import Login from "./src/pages/Login";
 import Plogging from "./src/pages/Plogging";
 import Main from "./src/pages/Main";
+import KakaoLogin from "./src/components/Login/KakaoLogin";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -21,6 +22,13 @@ export default function App() {
         <RootStack.Screen
           name="Login"
           component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <RootStack.Screen
+          name="KakaoLogin"
+          component={KakaoLogin}
           options={{
             headerShown: false,
           }}

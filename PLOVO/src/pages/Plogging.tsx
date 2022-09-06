@@ -1,5 +1,6 @@
 import PloggingStart from "../components/Plog/Plogging/PloggingStart";
 import PloggingPlay from "../components/Plog/Plogging/PloggingPlay";
+import PloggingFinish from "../components/Plog/Plogging/PloggingFinish";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../components/Res/RootStackParamList";
 import { useState } from "react";
@@ -21,9 +22,9 @@ export default function Plogging({ navigation, route }: PloggingScreenProps) {
           setStage={setStage}
         />
       ) : stage === 1 ? (
-        <PloggingPlay />
+        <PloggingPlay setStage={setStage} />
       ) : (
-        <></>
+        <PloggingFinish setStage={setStage} name={name} />
       )}
     </>
   );

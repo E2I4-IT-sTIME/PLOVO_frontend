@@ -61,7 +61,7 @@ const PageItem = styled.View`
 
 const InfoBox = styled.View`
   height: 100%;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 `;
 
