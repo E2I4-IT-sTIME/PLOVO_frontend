@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-} from "react-native";
+import { Alert } from "react-native";
 import styled from "styled-components/native";
 import MyButton from "../Res/MyButton";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -104,7 +97,7 @@ const ButtonBox = styled.View`
 const CoverBox = styled.View`
   flex-direction: column;
   width: 90%;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
   padding: 12px 0px 20px 0px;
   margin: auto;

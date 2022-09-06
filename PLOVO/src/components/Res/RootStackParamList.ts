@@ -8,4 +8,5 @@ export type RootStackParamList = {
   Plog: undefined;
   Social: undefined;
   Record: undefined;
+  KakaoLogin: undefined;
 };
