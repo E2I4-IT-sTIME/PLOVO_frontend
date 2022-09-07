@@ -16,12 +16,13 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 
 interface weighProps {
   setPlovo: Dispatch<SetStateAction<number>>;
+  setWeight: Dispatch<SetStateAction<number>>;
 }
 
 export default function ToWeighPlovo(props: weighProps) {
-  const { setPlovo } = props;
+  const { setPlovo, setWeight } = props;
   const animation = useRef(new Animated.Value(1)).current;
-  const [weight, setWeight] = useState(0);
+  const [trashWeight, setTrashWeight] = useState(0);
   const [sec, setSec] = useState(30);
 
   const timeLimit = () => {
@@ -51,7 +52,7 @@ export default function ToWeighPlovo(props: weighProps) {
       <UpperBox>
         <Circle>
           <MiniTitle>현재 담긴 무게</MiniTitle>
-          <Title style={{ marginTop: 2, fontSize: 45 }}>{weight}g</Title>
+          <Title style={{ marginTop: 2, fontSize: 45 }}>{trashWeight}g</Title>
         </Circle>
         <SubTitleBox>
           <SubTitle>

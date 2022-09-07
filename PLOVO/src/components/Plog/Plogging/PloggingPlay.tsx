@@ -7,10 +7,11 @@ import PloggingStop from "./PloggingStop";
 
 interface playProps {
   setStage: Dispatch<SetStateAction<number>>;
+  setTime: Dispatch<SetStateAction<string>>;
 }
 
 export default function PloggingPlay(props: playProps) {
-  const { setStage } = props;
+  const { setStage, setTime } = props;
   const [loading, setLoading] = useState(0);
 
   return (
@@ -29,7 +30,7 @@ export default function PloggingPlay(props: playProps) {
       {loading === 0 ? (
         <PloggingLoading setLoading={setLoading} />
       ) : loading === 1 ? (
-        <PloggingTimer setLoading={setLoading} />
+        <PloggingTimer setLoading={setLoading} setTime={setTime} />
       ) : (
         <PloggingStop setStage={setStage} />
       )}

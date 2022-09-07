@@ -5,10 +5,11 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
 interface timerProps {
   setLoading: Dispatch<SetStateAction<number>>;
+  setTime: Dispatch<SetStateAction<string>>;
 }
 
 export default function PloggingTimer(props: timerProps) {
-  const { setLoading } = props;
+  const { setLoading, setTime } = props;
   const animation = useRef(new Animated.Value(1)).current;
   const [timerState, setTimerState] = useState("Timer");
   const [pause, setPause] = useState(false);
@@ -71,6 +72,7 @@ export default function PloggingTimer(props: timerProps) {
     }).start(() => {
       // 애니메이션 처리 완료 후 실행할 작업
       // 햅틱 한 번 넣어야함
+      setTime(curTime);
       setLoading(2);
     });
   };
@@ -88,7 +90,7 @@ export default function PloggingTimer(props: timerProps) {
       <ControlBox>
         <Pressable>
           <FontAwesome
-            name="pause-circle"
+            name={pause ? "play-circle" : "pause-circle"}
             size={90}
             color={pause ? "black" : "white"}
             onPress={() => {

@@ -3,11 +3,11 @@ import { useState, Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { Pressable, Animated } from "react-native";
 
 interface finishProps {
-  setPlovo: Dispatch<SetStateAction<number>>;
+  plovoFadeout: () => void;
 }
 
 export default function PlovoFinish(props: finishProps) {
-  const { setPlovo } = props;
+  const { plovoFadeout } = props;
   const animation = useRef(new Animated.Value(0)).current;
   const [title, setTitle] = useState("결과 화면을 준비 중 입니다.");
 
@@ -48,6 +48,7 @@ export default function PlovoFinish(props: finishProps) {
       //easing: Easing.inOut(Easing.ease), // 애니메이션 속서 변경 함수 - 기본값 Easing.inOut(Easing.ease)
     }).start(() => {
       // 애니메이션 처리 완료 후 실행할 작업
+      plovoFadeout();
     });
   };
 
