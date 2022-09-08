@@ -8,7 +8,7 @@ import { RootStackParamList } from "../components/Res/RootStackParamList";
 export type PlogScreenProps = StackScreenProps<RootStackParamList, "Plog">;
 
 //네비게이션 두 번째인 Plog 부분을 담당할 페이지
-export default function Plog({ navigation, route }: PlogScreenProps) {
+export default function Plog({ navigation }: PlogScreenProps) {
   const moveToPlogging = (name: string) => {
     navigation.navigate("Plogging", {
       name: name,

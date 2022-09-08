@@ -12,7 +12,7 @@ export type HomeScreenProps = StackScreenProps<RootStackParamList, "Login">;
 
 const Login = ({ navigation, route }: HomeScreenProps) => {
   const tmpLocate = () => {
-    navigation.navigate("Main");
+    navigation.reset({ routes: [{ name: "Main" }] });
   };
   return (
     <Swiper
