@@ -2,7 +2,7 @@ import { useState, useEffect, Dispatch, SetStateAction, useRef } from "react";
 import styled from "styled-components/native";
 
 interface LoadingProps {
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  setLoading: Dispatch<SetStateAction<number>>;
 }
 
 export default function PloggingLoading(props: LoadingProps) {
@@ -10,7 +10,7 @@ export default function PloggingLoading(props: LoadingProps) {
   const [timer, setTimer] = useState(3);
   useInterval(() => {
     setTimer((prev) => prev - 1);
-    if (timer === 0) setLoading(false);
+    if (timer === 1) setLoading(1);
   }, 1000);
   return <Timer>{timer}</Timer>;
 }

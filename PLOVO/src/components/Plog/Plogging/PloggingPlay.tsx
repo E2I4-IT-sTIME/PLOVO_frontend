@@ -1,10 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import PloggingLoading from "./PloggingLoading";
+import PloggingTimer from "./PloggingTimer";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import PloggingStop from "./PloggingStop";
 
-export default function PloggingPlay() {
-  const [loading, setLoading] = useState(true);
+interface playProps {
+  setStage: Dispatch<SetStateAction<number>>;
+}
+
+export default function PloggingPlay(props: playProps) {
+  const { setStage } = props;
+  const [loading, setLoading] = useState(0);
 
   return (
     <LinearGradient
@@ -19,10 +26,12 @@ export default function PloggingPlay() {
       }}
       style={styles.container}
     >
-      {loading ? (
+      {loading === 0 ? (
         <PloggingLoading setLoading={setLoading} />
+      ) : loading === 1 ? (
+        <PloggingTimer setLoading={setLoading} />
       ) : (
-        <Text>플로깅시작</Text>
+        <PloggingStop setStage={setStage} />
       )}
     </LinearGradient>
   );
