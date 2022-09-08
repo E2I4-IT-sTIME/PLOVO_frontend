@@ -43,7 +43,7 @@ const Login = ({ navigation, route }: HomeScreenProps) => {
         />
       }
       paginationStyle={{
-        bottom: 50,
+        bottom: 30,
       }}
       loop={false}
     >
