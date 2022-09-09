@@ -1,17 +1,22 @@
 import { View,  Image,  StyleSheet, Text, Dimensions } from "react-native";
+import SignUpButton from "./SignUpButton";
 
 const WelecomeScreen = () => {
     const title = "환경을 위한,\n 그리고 나를 위한\n 등산 플로깅";
-    const sub = "등산하며 주운 쓰레기, \n 정상에 있는 플로보에 넣어주세요.\n 등산 플로깅 기록을 관리하고\n SNS에 공유할 수 있습니다.";
+    const sub = "간단한 정보 입력 후,\n플로보를 자유롭게 이용할 수 있어요.";
 
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
-                <Image style={styles.img} source={aboutImg1}/>
                 <View style={styles.textbox}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}>WELCOME</Text>
+                    <Text style={styles.sub}>플로보가 처음이시네요!</Text>
                     <Text style={styles.sub}>{sub}</Text>
                 </View>
+                <SignUpButton 
+                    text="GO"
+                    onPress={()=>{}}
+                />
             </View>
         </View>
     );
@@ -24,11 +29,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#277BC0'
     },
     logoArea: {
         flex: 0.7,
-        width: '100%',
+        width: '80%',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
     },
@@ -41,18 +45,18 @@ const styles = StyleSheet.create({
     },
     title: {
         width: '100%',
-        textAlign: 'right',
+        textAlign: 'left',
         fontWeight: '700',
         fontSize: 30,
-        color:'white',
+        color:'#277BC0',
         marginBottom: 15
     },
     sub:{
         width: '100%',
-        textAlign: 'right',
+        textAlign: 'left',
         fontWeight: '400',
         fontSize: 20,
-        color:'white'
+        color:'black'
     },
 });
 
