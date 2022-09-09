@@ -14,6 +14,13 @@ const Login = ({ navigation, route }: HomeScreenProps) => {
   const tmpLocate = () => {
     navigation.reset({ routes: [{ name: "Main" }] });
   };
+
+  const SignUpLocate = () => {
+    //navigation.navigate
+   // { key: string; params?: undefined; merge?: boolean | undefined; }
+    navigation.navigate("SignUp");
+  };
+
   return (
     <Swiper
       horizontal={true}
@@ -50,7 +57,7 @@ const Login = ({ navigation, route }: HomeScreenProps) => {
       <About1 />
       <About2 />
       <About3 />
-      <LoginScreen locate={tmpLocate} />
+      <LoginScreen locate={tmpLocate} SignUpLocate={SignUpLocate} />
     </Swiper>
   );
 };
