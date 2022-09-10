@@ -27,7 +27,7 @@ export default function Plog({ navigation }: PlogScreenProps) {
       }}
       style={styles.container}
     >
-      <Header title="PLOGGING" />
+      <Header title="PLOGGING" color={true} />
       <PlogLayout moveToPlogging={moveToPlogging} />
     </LinearGradient>
   );

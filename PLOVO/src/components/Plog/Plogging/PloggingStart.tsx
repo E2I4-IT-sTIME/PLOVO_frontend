@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, Platform, Vibration } from "react-native";
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -29,6 +29,12 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 
 export default function PloggingStart(props: startProps) {
   const { name, goBack, setStage } = props;
+
+  const startHandler = () => {
+    setStage(1);
+    Vibration.vibrate(300);
+  };
+
   return (
     <Container>
       <Background source={{ uri: dummy.img }} resizeMode="cover" />
@@ -47,7 +53,7 @@ export default function PloggingStart(props: startProps) {
           style={styles.container}
           colors={["#ffffff00", "#277BC0"]}
         >
-          <CustomButton type={true} onPress={() => setStage(1)}>
+          <CustomButton type={true} onPress={() => startHandler()}>
             <CustomTitle type={true}>플로깅 시작하기</CustomTitle>
           </CustomButton>
           <CustomButton type={false} onPress={() => goBack()}>
