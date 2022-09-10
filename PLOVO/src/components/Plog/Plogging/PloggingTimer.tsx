@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Pressable, Animated } from "react-native";
+import { Pressable, Animated, Vibration } from "react-native";
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
@@ -71,10 +71,13 @@ export default function PloggingTimer(props: timerProps) {
       //easing: Easing.inOut(Easing.ease), // 애니메이션 속서 변경 함수 - 기본값 Easing.inOut(Easing.ease)
     }).start(() => {
       // 애니메이션 처리 완료 후 실행할 작업
-      // 햅틱 한 번 넣어야함
       setTime(curTime);
       setLoading(2);
     });
+  };
+
+  const vibrate = () => {
+    Vibration.vibrate(10);
   };
 
   return (
@@ -94,16 +97,21 @@ export default function PloggingTimer(props: timerProps) {
             size={90}
             color={pause ? "black" : "white"}
             onPress={() => {
-              setPause((prev) => !prev),
-                setTimerState(pause ? "Timer" : "Pause");
+              setPause((prev) => !prev);
+              setTimerState(pause ? "Timer" : "Pause");
+              vibrate();
             }}
           />
         </Pressable>
         <Pressable
           delayLongPress={2000}
-          onLongPress={() => ploggingStop()}
+          onLongPress={() => {
+            vibrate();
+            ploggingStop();
+          }}
           onPressIn={() => {
             stopHandler();
+            vibrate();
           }}
           onPressOut={() => {
             setStop(false);
