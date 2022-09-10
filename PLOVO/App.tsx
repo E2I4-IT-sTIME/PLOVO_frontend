@@ -8,6 +8,7 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "./src/components/Res/RootStackParamList";
+import SignUp from "./src/pages/SignUp";
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -29,6 +30,13 @@ export default function App() {
         <RootStack.Screen
           name="KakaoLogin"
           component={KakaoLogin}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <RootStack.Screen
+          name="SignUp"
+          component={SignUp}
           options={{
             headerShown: false,
           }}

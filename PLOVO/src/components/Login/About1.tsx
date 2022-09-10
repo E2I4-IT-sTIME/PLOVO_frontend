@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     img: {
-        width: 320, 
-        height: 260,
+        width: 300, 
+        height: 240,
     },
     textbox: {
         width:'90%',        
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         width: '100%',
         textAlign: 'right',
         fontWeight: '700',
-        fontSize: 30,
+        fontSize: 28,
         color:'white',
         marginBottom: 15
     },
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         width: '100%',
         textAlign: 'right',
         fontWeight: '400',
-        fontSize: 20,
+        fontSize: 18,
         color:'white'
     },
 });
