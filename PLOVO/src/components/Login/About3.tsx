@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     img: {
-        width: 350, 
-        height: 280,
+        width: 330, 
+        height: 260,
     },
     textbox: {
         width:'80%',        
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         width: '100%',
         textAlign: 'right',
         fontWeight: '700',
-        fontSize: 30,
+        fontSize: 28,
         color:'white',
         marginBottom: 15
     },
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         width: '100%',
         textAlign: 'right',
         fontWeight: '400',
-        fontSize: 20,
+        fontSize: 18,
         color:'white'
     },
 });

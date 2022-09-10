@@ -14,12 +14,13 @@ import SocialButton from "./SocialButton";
 
 interface loginProps {
   locate: () => void;
+  SignUpLocate: ()=> void;
 }
 
 const LoginScreen = (props: loginProps) => {
   const title = "플로깅을 새롭게,\n나의 일상을 건강하게-";
   const sub = "이용약관\n개인정보 처리 방침";
-  const { locate } = props;
+  const { locate, SignUpLocate } = props;
 
   return (
     <View style={styles.container}>
@@ -41,7 +42,7 @@ const LoginScreen = (props: loginProps) => {
             text="Login with Kakao"
             src={kakao}
             onPress={() => {
-              locate();
+              SignUpLocate();
             }}
             buttonStyle={styles.kakao}
           />
