@@ -28,7 +28,7 @@ export default function SignUpButton(props: source1) {
 
 const styles = StyleSheet.create({
     button:{
-        width:'100%',
+        width:'90%',
         height: 50,
         borderRadius: 15,      
     },

@@ -1,5 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Swiper from "react-native-swiper";
 import { RootStackParamList } from "../components/Res/RootStackParamList";
@@ -13,45 +13,19 @@ import WelecomeScreen from "../components/SignUp/WelcomeScreen";
 export type HomeScreenProps = StackScreenProps<RootStackParamList, "SignUp">;
 
 const SignUp = ({ navigation }: any) => {
+    const [pageIndex, setPageIndex] = useState(1);
+
+    const changeIndex = (index:any) => {
+      setPageIndex(index);
+    }
     return (
-        <Swiper
-        horizontal={true}
-        style={styles.container}
-        dot={
-          <View
-            style={{
-              backgroundColor: "rgba(255,255,255,.3)",
-              width: 13,
-              height: 13,
-              borderRadius: 7,
-              marginLeft: 5,
-              marginRight: 5,
-            }}
-          />
-        }
-        activeDot={
-          <View
-            style={{
-              backgroundColor: "#fff",
-              width: 13,
-              height: 13,
-              borderRadius: 7,
-              marginLeft: 7,
-              marginRight: 7,
-            }}
-          />
-        }
-        paginationStyle={{
-          bottom: 30,
-        }}
-        loop={false}
-      >
-            <WelecomeScreen />
-            <TermsScreen />
-            <NameScreen />
-            <ProfileScreen />
-            <CompleteScreen />      
-        </Swiper>
+      <>
+      {pageIndex===1 &&  <WelecomeScreen changeIndex={changeIndex}/> }
+      {pageIndex===2 &&  <TermsScreen changeIndex={changeIndex} /> }
+      {pageIndex===3 &&  <NameScreen  changeIndex={changeIndex} /> }
+      {pageIndex===4 &&  <ProfileScreen changeIndex={changeIndex}/>}
+      {pageIndex===5 &&  <CompleteScreen />  }
+      </>
     );
 }
 
