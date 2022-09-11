@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { useState, Dispatch, SetStateAction, useEffect, useRef } from "react";
-import { Pressable, Animated } from "react-native";
+import { Pressable, Animated, Vibration } from "react-native";
 
 interface finishProps {
   plovoFadeout: () => void;
@@ -21,6 +21,10 @@ export default function PlovoFinish(props: finishProps) {
     }, 500);
   };
 
+  const vibrate = () => {
+    Vibration.vibrate(10);
+  };
+
   useEffect(() => {
     Animated.timing(animation, {
       toValue: 1, // 어떤 값으로 변경할지 - 필수
@@ -31,8 +35,8 @@ export default function PlovoFinish(props: finishProps) {
       //easing: Easing.inOut(Easing.ease), // 애니메이션 속서 변경 함수 - 기본값 Easing.inOut(Easing.ease)
     }).start(() => {
       // 애니메이션 처리 완료 후 실행할 작업
-      // 햅틱 한 번 넣어야함
       setTimeout(() => {
+        vibrate();
         fadeOut();
       }, 4000);
     });
