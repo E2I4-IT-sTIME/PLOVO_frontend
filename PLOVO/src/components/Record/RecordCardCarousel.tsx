@@ -169,7 +169,7 @@ const DateSelector = styled.View`
 `;
 
 const CurDate = styled.Text`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 900;
 `;
 
@@ -190,7 +190,7 @@ const IndicatorWrapper = styled.View`
 const NoItem = styled.View`
   width: ${pageWidth}px;
   height: 175px;
-  background-color: #277bc0;
+  background-color: #474747;
   border-radius: 10px;
   justify-content: center;
   align-items: center;

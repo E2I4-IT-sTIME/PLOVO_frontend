@@ -10,12 +10,13 @@ interface chartProps {
 
 export default function Chart(props: chartProps) {
   const { points, values, backgroundColor, pointColor, textColor } = props;
-
+  const max = Math.max(...values);
+  const heights: Array<number> = values.map((value) => value / max);
   return (
     <ChartBox style={{ marginTop: 10 }} backgroundColor={backgroundColor}>
       {points.map((mon, index) => (
         <ChartContent key={`${mon}-${index}`}>
-          <ChartBar height={values[index]} pointColor={pointColor} />
+          <ChartBar height={heights[index]} pointColor={pointColor} />
           <ChartText textColor={textColor}>{mon}</ChartText>
         </ChartContent>
       ))}
