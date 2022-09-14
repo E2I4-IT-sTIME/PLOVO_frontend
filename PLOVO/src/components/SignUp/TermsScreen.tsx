@@ -1,11 +1,27 @@
-import React from "react";
-import { View,  Image,  StyleSheet, Text, Dimensions, CheckBox } from "react-native";
+import React, { useState } from "react";
+import { View,  Image,  StyleSheet, Text, Dimensions, CheckBox, Alert } from "react-native";
+import { color } from "react-native-reanimated";
 import SignUpButton from "./SignUpButton";
 import TermsButton from "./TermsButton";
 
 const TermsScreen = (props:any) => {
     const title = "이용약관에\n동의해주세요";
     const { changeIndex } = props;
+
+    // const [agreeTerms, setAgreeTerms] = useState({
+    //     "term1" : false,
+    //     "term2" : false,
+    //     "term3" : false,
+    //     "term4" : false
+    // });
+
+    const [agreeTerm1, setAgreeTerm1] = useState(false);
+    const [agreeTerm2, setAgreeTerm2] = useState(false);
+    const [agreeTerm3, setAgreeTerm3] = useState(false);
+    const [agreeTerm4, setAgreeTerm4] = useState(false);
+
+    
+    let isAgree = agreeTerm1 && agreeTerm2 && agreeTerm3;
 
     return(
         <View style={styles.container}>
@@ -14,13 +30,15 @@ const TermsScreen = (props:any) => {
                 <View style={styles.textbox}>
                     <Text style={styles.sub2}>전체동의</Text>
                     <View>
-                        <TermsButton text="[필수] 개인정보 처리방침" onPress={()=>{}} />
-                        <TermsButton text="[필수] 위치 기반 서비스 이용약관" onPress={()=>{}} />
-                        <TermsButton text="[필수] 플로보 이용약관" onPress={()=>{}} />
-                        <TermsButton text="[선택] 앱 푸시 알림 수신" onPress={()=>{}} />
+                        <TermsButton text="[필수] 개인정보 처리방침" onPress={() => setAgreeTerm1(!agreeTerm1)} />
+                        <TermsButton text="[필수] 위치 기반 서비스 이용약관" onPress={() => setAgreeTerm2(!agreeTerm2)} />
+                        <TermsButton text="[필수] 플로보 이용약관" onPress={() => setAgreeTerm3(!agreeTerm3)} />
+                        <TermsButton text="[선택] 앱 푸시 알림 수신" onPress={() =>setAgreeTerm4(!agreeTerm4)} />
                     </View>
                 </View>
+                {!isAgree ? <Text style={{color:'red'}}>필수 약관에 모두 동의해야 합니다!</Text> : <Text></Text> }
                 <SignUpButton 
+                    disable={!isAgree} 
                     text="NEXT"
                     onPress= {() => { changeIndex(3); }}             
                 />

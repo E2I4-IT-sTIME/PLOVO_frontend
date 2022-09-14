@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface source1 {
     text: string,
-    onPress: () => void,
+    onPress: any,
 }
 
 export default function TermsButton(props: source1) {
@@ -17,8 +17,8 @@ export default function TermsButton(props: source1) {
         <TouchableOpacity
             style={[styles.button, {backgroundColor: isPressed ? '#277BC0' : '#EDEDED'}]}
             onPress={() => {
-                props.onPress; 
-                setIsPressed(!isPressed);
+                props.onPress();
+                changeIsPressed(isPressed);
             }}
             >
                 <Text style={[styles.btnText, {color: isPressed ? '#fff' : 'black'}]}>
