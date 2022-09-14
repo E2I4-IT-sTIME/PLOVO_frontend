@@ -36,7 +36,7 @@ const TermsScreen = (props:any) => {
                         <TermsButton text="[선택] 앱 푸시 알림 수신" onPress={() =>setAgreeTerm4(!agreeTerm4)} />
                     </View>
                 </View>
-                {!isAgree ? <Text style={{color:'red'}}>필수 약관에 모두 동의해야 합니다!</Text> : <Text></Text> }
+                {!isAgree ? <Text style={{color:'#F94C66'}}>필수 약관에 모두 동의해야 합니다!</Text> : <Text></Text> }
                 <SignUpButton 
                     disable={!isAgree} 
                     text="NEXT"
