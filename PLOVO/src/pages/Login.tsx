@@ -18,7 +18,7 @@ const Login = ({ navigation, route }: HomeScreenProps) => {
   const SignUpLocate = () => {
     //navigation.navigate
     // { key: string; params?: undefined; merge?: boolean | undefined; }
-    navigation.navigate("SignUp");
+    navigation.navigate("KakaoLogin");
   };
 
   return (
