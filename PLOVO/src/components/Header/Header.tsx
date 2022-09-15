@@ -3,6 +3,9 @@ import styled from "styled-components/native";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useState } from "react";
+import Sidebar from "./Sidebar";
 
 interface headerProps {
   title: string;
@@ -14,6 +17,12 @@ const dummyMyProfile =
 
 export default function Header(props: headerProps) {
   const { title, color } = props;
+  const [isBarVisible, setIsBarVisible] = useState(false);
+  const onPressHandler = () =>{
+    setIsBarVisible((prev) => {
+      return !prev
+    })
+  }
 
   const GradientText = (props: any) => {
     return (
@@ -37,6 +46,7 @@ export default function Header(props: headerProps) {
   };
 
   return (
+    <>
     <HeaderBox>
       {color ? (
         <Title>{title}</Title>
@@ -44,10 +54,12 @@ export default function Header(props: headerProps) {
         <NoRecordHeader>
           <MyProfile source={{ uri: dummyMyProfile }} resizeMode="cover" />
           <GradientText>{title}</GradientText>
-          <Ionicons name="menu" size={30} color="black" />
+          <TouchableOpacity onPress={() => {onPressHandler()}}><Ionicons name="menu" size={30} color="black" /></TouchableOpacity>      
         </NoRecordHeader>
       )}
     </HeaderBox>
+     {isBarVisible && <Sidebar onPressHandler={onPressHandler} />}
+     </>
   );
 }
 
