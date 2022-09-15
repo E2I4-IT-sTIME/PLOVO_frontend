@@ -17,6 +17,15 @@ interface PloggingRecord {
   img: string;
 }
 
+interface PloggingCardRecord {
+  time: string;
+  distance: number;
+  weight: number;
+  name: string;
+  img: string;
+  routeImg: string;
+}
+
 const dummyMyName = "중규리";
 const dummyMyProfile = "";
 
@@ -26,6 +35,17 @@ export default function Record({ navigation }: PlogScreenProps) {
 
   const goToPlog = () => {
     navigation.navigate("Plog");
+  };
+
+  const goToCard = (object: PloggingCardRecord) => {
+    navigation.navigate("PloggingCard", {
+      img: object.img,
+      name: object.name,
+      distance: object.distance,
+      weight: object.weight,
+      time: object.time,
+      routeImg: object.routeImg,
+    });
   };
 
   useEffect(() => {
@@ -74,6 +94,7 @@ export default function Record({ navigation }: PlogScreenProps) {
           record={record}
           myName={dummyMyName}
           myProfile={dummyMyProfile}
+          goToCard={goToCard}
         />
       ) : (
         <NoRecord name={dummyMyName} goToPlog={goToPlog} />

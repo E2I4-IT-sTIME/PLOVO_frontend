@@ -9,6 +9,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackParamList } from "./src/components/Res/RootStackParamList";
 import SignUp from "./src/pages/SignUp";
+import PloggingCard from "./src/pages/PloggingCard";
 
 const RootStack = createStackNavigator<RootStackParamList>();
 
@@ -51,6 +52,13 @@ export default function App() {
         <RootStack.Screen
           name="Plogging"
           component={Plogging}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <RootStack.Screen
+          name="PloggingCard"
+          component={PloggingCard}
           options={{
             headerShown: false,
           }}
