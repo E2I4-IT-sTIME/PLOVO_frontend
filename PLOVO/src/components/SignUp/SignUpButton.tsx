@@ -3,12 +3,14 @@ import {LinearGradient} from 'expo-linear-gradient';
 
 interface source1 {
     text: string,
-    onPress: () => void,
+    onPress: any,
+    disable: boolean
 }
 
 export default function SignUpButton(props: source1) {
     return(
         <TouchableOpacity
+            disabled={props.disable}
             style={styles.button}
             onPress={props.onPress}
             >

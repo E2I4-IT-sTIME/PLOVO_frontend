@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { View,  Image,  StyleSheet, Text, Dimensions, TextInput } from "react-native";
 import SignUpButton from "./SignUpButton";
 
 const NameScreen = (props:any) => {
     const title = "플로보에서 사용할\n이름을 알려주세요.";
+    const warningText = "이름은 공백이 될 수 없습니다!";
+
     const { changeIndex } = props;
+    const [name, setName] = useState("");
+    const [nameValid, setNameValid] = useState(false);
+
+    const onChangeNameHandler = (text:any) =>{
+        if (text.trim().length === 0) {
+            setNameValid(false);
+        } else {
+            setNameValid(true);
+        }
+        setName(text);
+    }
 
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
                 <Text style={styles.title}>{title}</Text>
-                <View style={styles.inputView}><TextInput style={styles.input} placeholder="이름을 입력해주세요"/></View>
+                <View style={styles.inputView}>
+                    <TextInput onChangeText={(text) => onChangeNameHandler(text)} style={styles.input} placeholder="이름을 입력해주세요"/>
+                    {!nameValid && <Text style={styles.warning}>{warningText}</Text> }
+                </View>
                 <SignUpButton 
+                    disable={!nameValid}
                     text="NEXT"
                     onPress= {() => { changeIndex(4); }}             
                 />
@@ -74,6 +91,12 @@ const styles = StyleSheet.create({
         color:'black',
         marginBottom: 20
     },
+    warning: {
+        color:'#F94C66',
+        width:'100%', 
+        marginTop: 2,
+        textAlign:'right'
+    }
 });
 
 export default NameScreen;

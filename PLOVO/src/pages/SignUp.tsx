@@ -12,7 +12,11 @@ import WelecomeScreen from "../components/SignUp/WelcomeScreen";
 
 export type HomeScreenProps = StackScreenProps<RootStackParamList, "SignUp">;
 
-const SignUp = ({ navigation }: any) => {
+const SignUp = ({ navigation }: any) => { 
+  const tmpLocate = () => {
+    navigation.reset({ routes: [{ name: "Main" }] });
+  };
+
     const [pageIndex, setPageIndex] = useState(1);
 
     const changeIndex = (index:any) => {
@@ -24,7 +28,7 @@ const SignUp = ({ navigation }: any) => {
       {pageIndex===2 &&  <TermsScreen changeIndex={changeIndex} /> }
       {pageIndex===3 &&  <NameScreen  changeIndex={changeIndex} /> }
       {pageIndex===4 &&  <ProfileScreen changeIndex={changeIndex}/>}
-      {pageIndex===5 &&  <CompleteScreen />  }
+      {pageIndex===5 &&  <CompleteScreen tmpLocate={tmpLocate} />  }
       </>
     );
 }

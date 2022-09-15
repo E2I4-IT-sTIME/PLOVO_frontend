@@ -1,13 +1,17 @@
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
 import { View,  Image,  StyleSheet, Text, Dimensions } from "react-native";
+import { RootStackParamList } from "../Res/RootStackParamList";
 import SignUpButton from "./SignUpButton";
+
+
+export type HomeScreenProps = StackScreenProps<RootStackParamList, "Login">;
 
 const CompleteScreen = (props:any) => {
     const title = "회원가입이\n완료 되었어요!";
     const sub1 = "\n건강한 등산 플로깅을-.";
     const sub2 = "플로보만의 다양한 기능을\n자유롭게 이용해보세요!";
-
-    const { changeIndex } = props;
+    const { tmpLocate } = props;
 
     return(
         <View style={styles.container}>
@@ -18,12 +22,9 @@ const CompleteScreen = (props:any) => {
                     <Text style={styles.sub2}>{sub2}</Text>
                 </View>
                 <SignUpButton 
+                    disable={false}
                     text="START"
-                    onPress= {
-                        () => {
-                            changeIndex(2);
-                        }
-                    }             
+                    onPress= {() => tmpLocate()}             
                 />
             </View>
         </View>

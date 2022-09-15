@@ -37,7 +37,7 @@ export default function CertificationItem(props: IPage) {
 
 const UploadedImgBox = styled.Pressable`
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
 `;
 
 const UploadedImg = styled.ImageBackground`
