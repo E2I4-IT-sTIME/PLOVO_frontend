@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { WebView } from "react-native-webview";
 import axios from "axios";
 
@@ -13,21 +13,24 @@ const KakaoLogin = ({ navigation }: any) => {
   const LogInProgress = (data: any) => {
     // access code는 url에 붙어 장황하게 날아온다.
     // substringd으로 url에서 code=뒤를 substring하면 된다.
+    //console.log(data);
 
     const exp = "code=";
 
     var condition = data.indexOf(exp);
+    console.log(condition);
 
     if (condition != -1) {
       var request_code = data.substring(condition + exp.length);
-      // console.log("access code :: " + request_code);
-      // console.log("제발", data);
+       console.log("access code :: " + request_code);
+       console.log("제발", data);
       requestToken(request_code);
       // tmpFetch();
     }
   };
 
   const requestToken = async (request_code: string) => {
+    console.log("실행시행");
     var returnValue = "none";
     var request_token_url = "https://kauth.kakao.com/oauth/token";
     axios({
@@ -107,7 +110,7 @@ const KakaoLogin = ({ navigation }: any) => {
         injectedJavaScript={runFirst}
         javaScriptEnabled={true}
         onMessage={(event) => {
-          LogInProgress(event.nativeEvent["url"]);
+          LogInProgress(event.nativeEvent.url);
         }}
       />
     </View>
