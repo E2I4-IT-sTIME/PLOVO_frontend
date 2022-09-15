@@ -2,6 +2,15 @@ import styled from "styled-components/native";
 import RecordCardCarousel from "./RecordCardCarousel";
 import Chart from "../Res/Chart";
 
+interface PloggingCardRecord {
+  time: string;
+  distance: number;
+  weight: number;
+  name: string;
+  img: string;
+  routeImg: string;
+}
+
 interface PloggingRecord {
   time: string;
   date: string;
@@ -15,6 +24,7 @@ interface recordProps {
   record: Array<PloggingRecord>;
   myName: string;
   myProfile: string;
+  goToCard: (object: PloggingCardRecord) => void;
 }
 
 interface ChartData {
@@ -36,11 +46,15 @@ const dummyChartWeight: ChartData = {
 };
 
 export default function RecordLayout(props: recordProps) {
-  const { record, myName } = props;
+  const { record, myName, goToCard } = props;
   return (
     <Container>
       <Title>{`${myName}님의,\n플로깅 기록이에요.`}</Title>
-      <RecordCardCarousel records={record} myProfile={dummyMyProfile} />
+      <RecordCardCarousel
+        records={record}
+        myProfile={dummyMyProfile}
+        goToCard={goToCard}
+      />
       <ChartBox>
         <ChartTitle color={"#265042"}>플로깅 시간 차트</ChartTitle>
         <Chart

@@ -4,6 +4,15 @@ import { TouchableOpacity, FlatList, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import RecordCardItem from "./RecordCardItem";
 
+interface PloggingCardRecord {
+  time: string;
+  distance: number;
+  weight: number;
+  name: string;
+  img: string;
+  routeImg: string;
+}
+
 interface PloggingRecord {
   time: string;
   date: string;
@@ -16,6 +25,7 @@ interface PloggingRecord {
 interface carouselProps {
   records: Array<PloggingRecord>;
   myProfile: string;
+  goToCard: (object: PloggingCardRecord) => void;
 }
 const screenWidth = Math.round(Dimensions.get("window").width);
 const gap = 28;
@@ -23,7 +33,7 @@ const offset = 20;
 const pageWidth = screenWidth - (28 + 20) * 2;
 
 export default function RecordCardCarousel(props: carouselProps) {
-  const { records, myProfile } = props;
+  const { records, myProfile, goToCard } = props;
   const [todayYear, setTodayYear] = useState(0);
   const [todayMoth, setTodayMonth] = useState(0);
   const [curYear, setCurYear] = useState("0");
@@ -37,6 +47,7 @@ export default function RecordCardCarousel(props: carouselProps) {
         item={item}
         myProfile={myProfile}
         style={{ width: pageWidth, marginHorizontal: gap / 2 }}
+        goToCard={goToCard}
       />
     );
   };

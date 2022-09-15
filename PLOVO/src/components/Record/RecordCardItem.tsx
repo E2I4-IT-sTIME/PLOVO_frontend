@@ -1,6 +1,15 @@
 import styled from "styled-components/native";
 import { ViewStyle } from "react-native";
 
+interface PloggingCardRecord {
+  time: string;
+  distance: number;
+  weight: number;
+  name: string;
+  img: string;
+  routeImg: string;
+}
+
 interface cardProps {
   time: string;
   date: string;
@@ -14,13 +23,23 @@ interface IPage {
   item: cardProps;
   myProfile: string;
   style: ViewStyle;
+  goToCard: (object: PloggingCardRecord) => void;
 }
 
 export default function RecordCardItem(props: IPage) {
-  const { item, myProfile, style } = props;
+  const { item, myProfile, style, goToCard } = props;
+
+  const thisRecord: PloggingCardRecord = {
+    time: item.time,
+    distance: item.distance,
+    weight: item.weight,
+    name: item.name,
+    img: item.img,
+    routeImg: "https://cdn-icons-png.flaticon.com/512/96/96643.png", //이거 수정해야함
+  };
 
   return (
-    <UploadedImgBox style={style}>
+    <UploadedImgBox style={style} onPress={() => goToCard(thisRecord)}>
       <UploadedImg source={{ uri: item.img }} resizeMode="cover">
         <InnerFrame>
           <WaterMarkText>{item.distance} km</WaterMarkText>
