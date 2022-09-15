@@ -32,7 +32,7 @@ export default function BestPloggerItem(props: IPage) {
 
 const UploadedImgBox = styled.Pressable`
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
 `;
 
 const UploadedImg = styled.ImageBackground`

@@ -261,7 +261,7 @@ const DateView = styled.Text`
 
 const ImgLayout = styled.View`
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
   margin-top: 30px;
 `;
 
@@ -286,7 +286,7 @@ const ImgBox = styled.Pressable`
 
 const UploadedImgBox = styled.Pressable`
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
 `;
 
 const UploadedImg = styled.ImageBackground`
@@ -337,7 +337,7 @@ const MyProfile = styled.Image`
 const ChartBox = styled.View`
   width: 100%;
   margin-top: 30px;
-  align-items: start;
+  align-items: flex-start;
 `;
 
 const Chart = styled.View`
