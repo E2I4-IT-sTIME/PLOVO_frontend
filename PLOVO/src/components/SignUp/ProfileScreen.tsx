@@ -1,19 +1,49 @@
-import React from "react";
-import { View,  Image,  StyleSheet, Text, Dimensions, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View,  Image,  StyleSheet, Text, Dimensions, TextInput, Button } from "react-native";
 import SignUpButton from "./SignUpButton";
+import * as ImagePicker from 'expo-image-picker';
+import loadImg from  "../../img/imageButton.png";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ProfileScreen = (props:any) => {
     const title = "프로필 사진을\n등록해주세요.";
     const sub = "등록을 원하지 않는다면,\n그냥 넘어가주세요!";
+    const imgMsg = "프로필 사진은,\n플로보 커뮤니티에서만 사용됩니다.";
     const { changeIndex } = props;
+
+    const [image, setImage] = useState("");
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.cancelled) {
+            setImage(result.uri);
+        }
+    };
 
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.sub1}>{sub}</Text>
-                <View style={styles.inputView}></View>
+                <View style={styles.inputView} >
+                    <TouchableOpacity
+                        onPress={pickImage}
+                    >
+                       {image=="" ? <Image style={styles.img} source={loadImg} /> : <Image source={{ uri: image }} style={styles.img} />   }
+                    </TouchableOpacity>   
+                    <Text style={{textAlign:'center'}}>{imgMsg}</Text>                 
+                </View>
+                
                 <SignUpButton 
+                    disable={false}
                     text="NEXT"
                     onPress= {() => { changeIndex(5); }}             
                 />
@@ -39,8 +69,14 @@ const styles = StyleSheet.create({
     inputView:{
         flex: 1,
         width:'100%',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        paddingBottom: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    img:{
+        width: 200, height: 200,
+        borderRadius: 20,
+        marginBottom: 5
     },
     input: {
         width:'100%',
@@ -55,7 +91,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 30,
         color:'black',
-        marginBottom: 20
+        marginBottom: 15
     },
     sub1:{
         width: '100%',
