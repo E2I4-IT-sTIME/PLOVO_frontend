@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { View,  Image,  StyleSheet, Text, Dimensions, TextInput } from "react-native";
 import SignUpButton from "./SignUpButton";
@@ -5,6 +6,8 @@ import SignUpButton from "./SignUpButton";
 const NameScreen = (props:any) => {
     const title = "플로보에서 사용할\n이름을 알려주세요.";
     const warningText = "이름은 공백이 될 수 없습니다!";
+
+    const userId = 11;
 
     const { changeIndex } = props;
     const [name, setName] = useState("");
@@ -19,6 +22,24 @@ const NameScreen = (props:any) => {
         setName(text);
     }
 
+    const onSubmitHandler = () => {
+        axios
+          .post(
+            "http://52.78.4.217:8080/join/" + {userId} + "/username",
+            {
+              id: userId,
+              name: name,
+            },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log("유저네임post 성공");
+          })
+          .catch((res) => {
+            console.log("Error!");
+          });
+      };
+
     return(
         <View style={styles.container}>
             <View  style={styles.logoArea}>
@@ -30,7 +51,7 @@ const NameScreen = (props:any) => {
                 <SignUpButton 
                     disable={!nameValid}
                     text="NEXT"
-                    onPress= {() => { changeIndex(4); }}             
+                    onPress= {() => { changeIndex(4);  onSubmitHandler()}}             
                 />
             </View>
         </View>

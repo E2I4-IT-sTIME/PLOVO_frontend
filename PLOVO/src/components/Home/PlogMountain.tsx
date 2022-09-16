@@ -17,10 +17,11 @@ const dummy: Array<RecommendCard> = [
   ];
 
 const win = Dimensions.get('window');
-const PlogMountain = () => {
+const PlogMountain = (props:any) => {
     const screenWidth = Math.round(Dimensions.get("window").width);
     const screenHeight = Math.round(Dimensions.get("window").height);
     const [page, setPage] = useState(0);
+    const MountainResList = props.data;
 
     return (
         <View style={styles.container}>
