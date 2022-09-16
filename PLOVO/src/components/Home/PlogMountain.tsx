@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'left',
         fontSize: 20,
-        marginBottom: 10
     },
 });
 
