@@ -66,7 +66,9 @@ const data = {
   }
 
 const win = Dimensions.get('window');
-const UpdatePlog = () => {
+const UpdatePlog = (props:any) => {
+    const RecentPlovos = props.data;
+    let id = 0;
     return(
         <View style={styles.container}>
             <Text style={styles.title}>최근 업데이트한<Text style={{fontWeight:'bold', color:'#277BC0'}}> 플로거</Text></Text>
@@ -100,7 +102,7 @@ const UpdatePlog = () => {
                 bottom: 30,
               }}
             loop={false}>
-                {data.items.map((ele) => <CertificationItem item={ele}  style={{ width: win.width-70, marginHorizontal: 15 }} />) }   
+                {data.items.map((ele) => { id++; return (<CertificationItem item={ele}  style={{ width: win.width-70, marginHorizontal: 15 }} key={id} /> )}) }   
             </Swiper>            
         </View>
     );

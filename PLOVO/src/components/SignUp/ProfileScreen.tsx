@@ -4,14 +4,17 @@ import SignUpButton from "./SignUpButton";
 import * as ImagePicker from 'expo-image-picker';
 import loadImg from  "../../img/imageButton.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import axios from "axios";
 
 const ProfileScreen = (props:any) => {
     const title = "프로필 사진을\n등록해주세요.";
     const sub = "등록을 원하지 않는다면,\n그냥 넘어가주세요!";
     const imgMsg = "프로필 사진은,\n플로보 커뮤니티에서만 사용됩니다.";
     const { changeIndex } = props;
+    const userId = 11;
 
     const [image, setImage] = useState("");
+
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -27,6 +30,25 @@ const ProfileScreen = (props:any) => {
             setImage(result.uri);
         }
     };
+
+    const onSubmitHandler = () => {
+        if(image == "") return;
+        axios
+          .post(
+            "http://52.78.4.217:8080/join/" + {userId} + "/image",
+            {
+              id: userId,
+              image: image,
+            },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            console.log("이미지 전송 선공");
+          })
+          .catch((res) => {
+            console.log("Error!");
+          });
+      };
 
     return(
         <View style={styles.container}>
@@ -45,7 +67,7 @@ const ProfileScreen = (props:any) => {
                 <SignUpButton 
                     disable={false}
                     text="NEXT"
-                    onPress= {() => { changeIndex(5); }}             
+                    onPress= {() => { changeIndex(5);  onSubmitHandler()}}             
                 />
             </View>
         </View>
