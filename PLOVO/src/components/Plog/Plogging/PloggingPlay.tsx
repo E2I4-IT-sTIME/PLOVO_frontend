@@ -8,10 +8,11 @@ import PloggingStop from "./PloggingStop";
 interface playProps {
   setStage: Dispatch<SetStateAction<number>>;
   setTime: Dispatch<SetStateAction<string>>;
+  recordId: number;
 }
 
 export default function PloggingPlay(props: playProps) {
-  const { setStage, setTime } = props;
+  const { setStage, setTime, recordId } = props;
   const [loading, setLoading] = useState(0);
 
   return (
@@ -32,7 +33,7 @@ export default function PloggingPlay(props: playProps) {
       ) : loading === 1 ? (
         <PloggingTimer setLoading={setLoading} setTime={setTime} />
       ) : (
-        <PloggingStop setStage={setStage} />
+        <PloggingStop setStage={setStage} recordId={recordId} />
       )}
     </LinearGradient>
   );

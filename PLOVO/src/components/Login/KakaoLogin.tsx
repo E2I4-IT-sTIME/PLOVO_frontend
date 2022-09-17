@@ -37,7 +37,6 @@ const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
   };
 
   const requestToken = async (request_code: string) => {
-    console.log("실행시행");
     var returnValue = "none";
     var request_token_url = "https://kauth.kakao.com/oauth/token";
     axios({
@@ -70,6 +69,7 @@ const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
       .then((response) => {
         const check = response.data.isExist;
         const jwt = response.data.jwtToken;
+        console.log(`통신성공 ${jwt}`);
         if (check) {
           navigation.reset({ routes: [{ name: "SignUp" }] });
           storeData(jwt);

@@ -12,10 +12,11 @@ interface finishProps {
   setStage: Dispatch<SetStateAction<number>>;
   setWeight: Dispatch<SetStateAction<number>>;
   name: string;
+  recordId: number;
 }
 
 export default function PloggingFinish(props: finishProps) {
-  const { setStage, setWeight, name } = props;
+  const { setStage, setWeight, name, recordId } = props;
   const [plovo, setPlovo] = useState(0); //0은 플로보를 찾아주세요 | 1은 플로보 위치 이미지 | 2는 플로보 입열기 | 3은 무게측정 중 | 4는 플로보 종료
   const animation = useRef(new Animated.Value(1)).current;
 
@@ -51,7 +52,7 @@ export default function PloggingFinish(props: finishProps) {
         {plovo === 0 ? (
           <ToFindPlovo setPlovo={setPlovo} />
         ) : plovo === 1 ? (
-          <ToFindPlovoImg setPlovo={setPlovo} name={name} />
+          <ToFindPlovoImg setPlovo={setPlovo} name={name} recordId={recordId} />
         ) : plovo === 2 ? (
           <ToOpenPlovo setPlovo={setPlovo} />
         ) : plovo == 3 ? (

@@ -1,15 +1,28 @@
 import styled from "styled-components/native";
 import { Pressable, Animated } from "react-native";
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface stopProps {
   setStage: Dispatch<SetStateAction<number>>;
+  recordId: number;
 }
 
 export default function PloggingStop(props: stopProps) {
-  const { setStage } = props;
+  const { setStage, recordId } = props;
   const animation = useRef(new Animated.Value(0)).current;
   const [title, setTitle] = useState("플로깅을 종료합니다.");
+
+  const getData = async () => {
+    try {
+      const loadedData = await AsyncStorage.getItem("token");
+      const token = loadedData ? JSON.parse(loadedData) : "";
+      finishPlogging(token);
+    } catch (e) {
+      console.log("토큰 불러오기 실패");
+    }
+  };
 
   const titlePlay = () => {
     useInterval(() => {
@@ -18,6 +31,26 @@ export default function PloggingStop(props: stopProps) {
         setTitle("플로깅을 종료합니다...");
       else setTitle("플로깅을 종료합니다.");
     }, 500);
+  };
+
+  titlePlay();
+
+  const finishPlogging = (token: string) => {
+    axios
+      .get("http://52.78.4.217:8080/auth/plog/end", {
+        params: { userRecord_id: recordId },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("플로깅 종료");
+        console.log(res);
+        fadeOut();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -32,8 +65,8 @@ export default function PloggingStop(props: stopProps) {
       // 애니메이션 처리 완료 후 실행할 작업
       // 햅틱 한 번 넣어야함
       setTimeout(() => {
-        fadeOut();
-      }, 4000);
+        getData();
+      }, 3000);
     });
   }, []);
 
@@ -51,8 +84,6 @@ export default function PloggingStop(props: stopProps) {
       setStage(2);
     });
   };
-
-  titlePlay();
 
   return (
     <Container style={{ opacity: animation }}>
