@@ -8,12 +8,15 @@ import {
   PinkButton,
   PinkText,
 } from "../../Res/PloggingView";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import PlovoImgCarousel from "./PlovoImgCarousel";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface imgProps {
   setPlovo: Dispatch<SetStateAction<number>>;
   name: string;
+  recordId: number;
 }
 
 const dummy: Array<string> = [
@@ -25,7 +28,40 @@ const dummy: Array<string> = [
 ];
 
 export default function ToFindPlovoImg(props: imgProps) {
-  const { setPlovo, name } = props;
+  const { setPlovo, name, recordId } = props;
+  const [imgList, setImgList] = useState<Array<string>>();
+
+  const getData = async () => {
+    try {
+      const loadedData = await AsyncStorage.getItem("token");
+      const token = loadedData ? JSON.parse(loadedData) : "";
+      getPlovoImgs(token);
+    } catch (e) {
+      console.log("토큰 불러오기 실패");
+    }
+  };
+
+  const getPlovoImgs = (token: string) => {
+    axios
+      .get("http://52.78.4.217:8080/auth/plog/site", {
+        params: { plovo_id: recordId },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("데이터받기성공");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Container>
       <TitleBox>

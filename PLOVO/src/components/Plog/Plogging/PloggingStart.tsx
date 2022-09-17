@@ -1,51 +1,85 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { StyleSheet, Text, Platform, Vibration } from "react-native";
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface startProps {
   name: string;
   goBack: () => void;
   setStage: Dispatch<SetStateAction<number>>;
+  data: PlogData;
+  setRecordId: Dispatch<SetStateAction<number>>;
+  setPlovoId: Dispatch<SetStateAction<number>>;
 }
 
 interface PlogData {
-  name: string; //산 이름
-  distance: string; //거리
-  weight: string; //무게
-  img: string; //이미지 url
+  distance: string;
+  mimage: string;
+  mname: string;
+  time: string;
+  weight: number;
 }
-
-const dummy: PlogData = {
-  name: "북한산", //산 이름
-  distance: "5", //거리
-  weight: "0.8", //무게
-  img: "https://t1.daumcdn.net/cfile/blog/2166C83F54D4CC0E0E", //이미지 url
-};
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 const screenHeight = Math.round(Dimensions.get("window").height);
 
 export default function PloggingStart(props: startProps) {
-  const { name, goBack, setStage } = props;
+  const { name, goBack, setStage, data, setRecordId, setPlovoId } = props;
+  const [token, setToken] = useState("");
 
   const startHandler = () => {
     setStage(1);
     Vibration.vibrate(300);
   };
 
+  const onStartPlogging = () => {
+    axios
+      .get("http://52.78.4.217:8080/auth/plog/start", {
+        params: { mName: name },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setRecordId(res.data.userRecord_id);
+        setPlovoId(res.data.plovoId);
+        startHandler();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getData = async () => {
+    try {
+      const loadedData = await AsyncStorage.getItem("token");
+      setToken(loadedData ? JSON.parse(loadedData) : "");
+      console.log(
+        `토큰 불러오기 성공 : ${loadedData ? JSON.parse(loadedData) : ""}`
+      );
+    } catch (e) {
+      console.log("토큰 불러오기 실패");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <Container>
-      <Background source={{ uri: dummy.img }} resizeMode="cover" />
+      <Background source={{ uri: data.mimage }} resizeMode="cover" />
       <HoverBox>
         <Text style={{ fontSize: 24, fontWeight: "bold" }}>{name}플로깅</Text>
         <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 10 }}>
-          예상거리 <Text style={{ color: "#277BC0" }}>{dummy.distance}km</Text>
+          예상거리 <Text style={{ color: "#277BC0" }}>{data.distance}km</Text>
         </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           현재 플로보 무게{" "}
-          <Text style={{ color: "#277BC0" }}>{dummy.weight}kg</Text>
+          <Text style={{ color: "#277BC0" }}>{data.weight}g</Text>
         </Text>
       </HoverBox>
       <BottomBox>
@@ -53,7 +87,7 @@ export default function PloggingStart(props: startProps) {
           style={styles.container}
           colors={["#ffffff00", "#277BC0"]}
         >
-          <CustomButton type={true} onPress={() => startHandler()}>
+          <CustomButton type={true} onPress={() => onStartPlogging()}>
             <CustomTitle type={true}>플로깅 시작하기</CustomTitle>
           </CustomButton>
           <CustomButton type={false} onPress={() => goBack()}>
