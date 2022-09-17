@@ -26,11 +26,11 @@ export default function PloggingCard(props: PloggingCardRecord) {
       >
         <InfoBox>
           <InfoName>{name}</InfoName>
-          <InfoText>{distance} km</InfoText>
-          <InfoText>{time}</InfoText>
-          <InfoText>{weight} g</InfoText>
+          <InfoText>{distance ? distance : 0} km</InfoText>
+          <InfoText>{time ? time : "00 : 00 : 00"}</InfoText>
+          <InfoText>{weight ? weight : 0} g</InfoText>
         </InfoBox>
-        <RouteImg source={{ uri: routeImg }} resizeMode="cover" />
+        {/* <RouteImg source={{ uri: routeImg }} resizeMode="cover" /> */}
         <Logo source={require("../../../assets/logo_title.png")} />
       </LinearGradient>
     </Background>

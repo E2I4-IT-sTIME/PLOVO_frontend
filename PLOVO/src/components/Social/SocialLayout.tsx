@@ -12,83 +12,43 @@ interface Plogger {
 
 interface RecentPlog {
   distance: string;
-  mimage: string;
   mname: string;
   time: string;
-  weight: number;
+  uploadImg: string;
+  userProfile: string;
+  weight: string;
 }
 
 interface SocailObject {
   bestPlogger: Array<Plogger>;
-  recentPlog: Array<RecentPlog>;
+  recentPlog1: Array<RecentPlog>;
+  recentPlog2: Array<RecentPlog>;
+  recentPlog3: Array<RecentPlog>;
 }
 
-// const dummyPlogger: Array<Plogger> = [
-//   {
-//     rank: 1,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "고슴도치",
-//   },
-//   {
-//     rank: 2,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "고",
-//   },
-//   {
-//     rank: 3,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "ㅅ므",
-//   },
-//   {
-//     rank: 4,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "도",
-//   },
-//   {
-//     rank: 5,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "치",
-//   },
-//   {
-//     rank: 6,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "고슴",
-//   },
-//   {
-//     rank: 7,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "도치",
-//   },
-//   {
-//     rank: 8,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "고도",
-//   },
-//   {
-//     rank: 9,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "슴치",
-//   },
-//   {
-//     rank: 10,
-//     profileImg:
-//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-//     name: "고슴도",
-//   },
-// ];
+interface PloggingRecord {
+  time: string;
+  date: string;
+  distance: number;
+  weight: number;
+  name: string;
+  img: string;
+  profile: string;
+}
+
+interface cert {
+  name: string;
+  items: Array<PloggingRecord>;
+}
+
+interface CertProps {
+  items: Array<cert>;
+}
 
 export default function SocailLayout() {
   const [curMonth, setCurMonth] = useState(0);
   const [socialData, setSocialData] = useState<SocailObject>();
+  const [certArray, setCertArray] = useState<Array<cert>>();
 
   const getTodayMonth = () => {
     const today = new Date(); // today 객체에 Date()의 결과를 넣어줬다
@@ -108,10 +68,67 @@ export default function SocailLayout() {
       });
   };
 
+  const getCertArray = () => {
+    if (socialData) {
+      const certArray: Array<cert> = [];
+
+      const firstName = socialData.recentPlog1[0].mname;
+      const firstObject: Array<PloggingRecord> = [];
+      socialData.recentPlog1.map((data, index) =>
+        firstObject.push({
+          time: data.time,
+          date: data.time,
+          distance: Number(data.distance),
+          weight: Number(data.weight),
+          name: data.mname,
+          img: data.uploadImg,
+          profile: data.userProfile,
+        })
+      );
+      certArray.push({ name: firstName, items: firstObject });
+
+      const secondName = socialData.recentPlog2[0].mname;
+      const secondObject: Array<PloggingRecord> = [];
+      socialData.recentPlog2.map((data, index) =>
+        secondObject.push({
+          time: data.time,
+          date: data.time,
+          distance: Number(data.distance),
+          weight: Number(data.weight),
+          name: data.mname,
+          img: data.uploadImg,
+          profile: data.userProfile,
+        })
+      );
+      certArray.push({ name: secondName, items: secondObject });
+
+      const thirdName = socialData.recentPlog3[0].mname;
+      const thirdObject: Array<PloggingRecord> = [];
+      socialData.recentPlog3.map((data, index) =>
+        thirdObject.push({
+          time: data.time,
+          date: data.time,
+          distance: Number(data.distance),
+          weight: Number(data.weight),
+          name: data.mname,
+          img: data.uploadImg,
+          profile: data.userProfile,
+        })
+      );
+      certArray.push({ name: thirdName, items: thirdObject });
+
+      setCertArray(certArray);
+    }
+  };
+
   useEffect(() => {
     getTodayMonth();
     getSocialData();
   }, []);
+
+  useEffect(() => {
+    getCertArray();
+  }, [socialData]);
 
   return (
     <Container>
@@ -127,7 +144,7 @@ export default function SocailLayout() {
       </Box>
       <Box>
         <Title>실시간 플로깅 인증</Title>
-        <CertificationLayout />
+        {certArray ? <CertificationLayout items={certArray} /> : <></>}
       </Box>
     </Container>
   );

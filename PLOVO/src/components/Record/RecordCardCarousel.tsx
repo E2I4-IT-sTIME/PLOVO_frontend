@@ -4,28 +4,20 @@ import { TouchableOpacity, FlatList, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import RecordCardItem from "./RecordCardItem";
 
-interface PloggingCardRecord {
-  time: string;
-  distance: number;
-  weight: number;
-  name: string;
-  img: string;
-  routeImg: string;
-}
-
-interface PloggingRecord {
-  time: string;
+interface RecordData {
   date: string;
-  distance: number;
-  weight: number;
-  name: string;
-  img: string;
+  distance: string;
+  mname: string;
+  profileImg: string;
+  time: string;
+  uploadImg: string;
+  weight: string;
 }
 
 interface carouselProps {
-  records: Array<PloggingRecord>;
+  records: Array<RecordData>;
   myProfile: string;
-  goToCard: (object: PloggingCardRecord) => void;
+  goToCard: (object: RecordData) => void;
 }
 const screenWidth = Math.round(Dimensions.get("window").width);
 const gap = 28;
@@ -38,7 +30,7 @@ export default function RecordCardCarousel(props: carouselProps) {
   const [todayMoth, setTodayMonth] = useState(0);
   const [curYear, setCurYear] = useState("0");
   const [curMonth, setCurMonth] = useState("0");
-  const [contents, setContents] = useState<Array<PloggingRecord>>();
+  const [contents, setContents] = useState<Array<RecordData>>();
   const [page, setPage] = useState(0);
 
   const renderItem = ({ item }: any) => {
@@ -71,7 +63,7 @@ export default function RecordCardCarousel(props: carouselProps) {
 
   const getNowContents = () => {
     const curDate = `${curYear}-${curMonth}`;
-    const newArr: Array<PloggingRecord> = records.filter((record, index) =>
+    const newArr: Array<RecordData> = records.filter((record, index) =>
       record.date.includes(curDate)
     );
     if (newArr) setContents(newArr);
@@ -143,7 +135,9 @@ export default function RecordCardCarousel(props: carouselProps) {
             data={contents}
             decelerationRate="fast"
             horizontal
-            keyExtractor={(item: any) => `page__${item.name}`}
+            keyExtractor={(item: RecordData) =>
+              `page__${item.date}-${item.time}`
+            }
             onScroll={onScroll}
             pagingEnabled
             renderItem={renderItem}

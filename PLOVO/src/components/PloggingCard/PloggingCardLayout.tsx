@@ -1,10 +1,11 @@
 import styled from "styled-components/native";
 import { Dimensions, PixelRatio, View, Platform, Alert } from "react-native";
 import PloggingCard from "./PloggingCard";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { Feather, AntDesign, Entypo } from "@expo/vector-icons";
 import ViewShot, { captureRef } from "react-native-view-shot";
 import { useCallback, useRef } from "react";
 import * as MediaLibrary from "expo-media-library";
+import * as Sharing from "expo-sharing";
 
 interface PloggingCardRecord {
   time: string;
@@ -96,7 +97,7 @@ export default function PloggingCardLayout(props: PloggingCardRecord) {
           <Feather name="download" size={26} color="white" />
         </MyButton>
         <MyButton onPress={() => share()}>
-          <Feather name="download" size={26} color="white" />
+          <Entypo name="share-alternative" ize={26} color="white" />
         </MyButton>
       </Buttons>
     </Container>
