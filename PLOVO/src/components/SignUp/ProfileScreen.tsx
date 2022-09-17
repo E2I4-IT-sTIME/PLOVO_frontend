@@ -5,16 +5,15 @@ import * as ImagePicker from 'expo-image-picker';
 import loadImg from  "../../img/imageButton.png";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = (props:any) => {
     const title = "프로필 사진을\n등록해주세요.";
     const sub = "등록을 원하지 않는다면,\n그냥 넘어가주세요!";
     const imgMsg = "프로필 사진은,\n플로보 커뮤니티에서만 사용됩니다.";
     const { changeIndex } = props;
-    const userId = 11;
 
     const [image, setImage] = useState("");
-
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,24 +30,45 @@ const ProfileScreen = (props:any) => {
         }
     };
 
-    const onSubmitHandler = () => {
-        if(image == "") return;
-        axios
-          .post(
-            "http://52.78.4.217:8080/join/" + {userId} + "/image",
-            {
-              id: userId,
-              image: image,
+    async function getData() {
+        try {
+          const loadedData1 = await AsyncStorage.getItem("userId");
+          const id = loadedData1 ? JSON.parse(loadedData1) : "";
+          return id;
+        } catch (e) {
+          console.log("id 불러오기 실패");
+        }
+    };
+
+
+    const onSubmitHandler = async () => {
+        const userId = await getData();     
+
+        const localUri = image;
+        const filename = localUri.split("/").pop();
+        const match = /\.(\w+)$/.exec(filename ?? "");
+        const type = match ? `image/${match[1]}` : `image`;
+        const formData = new FormData();
+        formData.append("image", { uri: localUri, name: filename, type });
+
+        console.log("http://52.78.4.217:8080/join/" + userId + "/image");
+          axios({
+            method: "post",
+            url: "http://52.78.4.217:8080/join/" + userId + "/image",
+            headers: {
+              "content-type": "multipart/form-data",
             },
-            { withCredentials: true }
-          )
-          .then((res) => {
-            console.log("이미지 전송 선공");
+            data: formData,
           })
-          .catch((res) => {
-            console.log("Error!");
+            .then((res) => {
+              console.log("유저프로필 이미지 post 성공");
+            })
+            .catch((err) => {
+              console.log(err);
           });
+        
       };
+    
 
     return(
         <View style={styles.container}>

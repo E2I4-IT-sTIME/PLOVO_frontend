@@ -1,13 +1,26 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View,  Image,  StyleSheet, Text, Dimensions, TextInput } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import SignUpButton from "./SignUpButton";
 
 const NameScreen = (props:any) => {
     const title = "플로보에서 사용할\n이름을 알려주세요.";
     const warningText = "이름은 공백이 될 수 없습니다!";
 
-    const userId = 11;
+    let userToken = "";
+
+    async function getData() {
+        try {
+          const loadedData1 = await AsyncStorage.getItem("userId");
+          const loadedData2 = await AsyncStorage.getItem("token");
+          const id = loadedData1 ? JSON.parse(loadedData1) : "";
+          const token = loadedData2 ? JSON.parse(loadedData2) : "";
+          return id;
+        } catch (e) {
+          console.log("id 불러오기 실패");
+        }
+    };
 
     const { changeIndex } = props;
     const [name, setName] = useState("");
@@ -22,21 +35,20 @@ const NameScreen = (props:any) => {
         setName(text);
     }
 
-    const onSubmitHandler = () => {
+    const onSubmitHandler = async () => {
+        const userId = await getData();
         axios
           .post(
-            "http://52.78.4.217:8080/join/" + {userId} + "/username",
-            {
-              id: userId,
-              name: name,
-            },
-            { withCredentials: true }
+            "http://52.78.4.217:8080/join/" + userId + "/username?name=" + name,        
+            { 
+              withCredentials: true
+            }
           )
           .then((res) => {
             console.log("유저네임post 성공");
           })
           .catch((res) => {
-            console.log("Error!");
+            console.log(res);
           });
       };
 

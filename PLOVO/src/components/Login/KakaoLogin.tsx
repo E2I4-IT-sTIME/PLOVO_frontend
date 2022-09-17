@@ -24,6 +24,12 @@ const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
     } catch (e) {}
   };
 
+  const storeId = async (id: Number) => {
+    try {
+      await AsyncStorage.setItem("userId", JSON.stringify(id));
+    } catch (e) {}
+  };
+
   const LogInProgress = (data: any) => {
     const exp = "code=";
 
@@ -69,8 +75,9 @@ const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
       .then((response) => {
         const check = response.data.isExist;
         const jwt = response.data.jwtToken;
+        storeId(response.data.userId);
         console.log(`통신성공 ${jwt}`);
-        if (check) {
+        if (!check) {
           navigation.reset({ routes: [{ name: "SignUp" }] });
           storeData(jwt);
         } else {
