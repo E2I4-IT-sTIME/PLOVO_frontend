@@ -74,13 +74,16 @@ export default function Plogging({ navigation, route }: PloggingScreenProps) {
             name={name}
             setWeight={setWeight}
             recordId={recordId}
+            plovoId={plovoId}
           />
         ) : stage === 3 ? (
           <PloggingResult
             moveToMain={moveToMain}
             name={name}
+            distance={info.distance}
             time={time}
             weight={weight}
+            recordId={recordId}
           />
         ) : (
           <></>

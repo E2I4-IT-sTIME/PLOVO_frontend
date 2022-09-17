@@ -4,9 +4,8 @@ import BestPloggerItem from "./BestPloggerItem";
 import styled from "styled-components/native";
 
 interface Plogger {
-  rank: number;
-  profileImg: string;
-  name: string;
+  profile_img: string;
+  username: string;
 }
 
 interface carouselProps {
@@ -22,11 +21,12 @@ export default function BestPloggerCarousel(props: carouselProps) {
   const { items } = props;
   const [page, setPage] = useState(0);
 
-  const renderItem = ({ item }: any) => {
+  const renderItem = (item: Plogger, index: number) => {
     return (
       <BestPloggerItem
         item={item}
         style={{ width: pageWidth, marginHorizontal: gap / 2 }}
+        index={index}
       />
     );
   };
@@ -48,19 +48,14 @@ export default function BestPloggerCarousel(props: carouselProps) {
         data={items}
         decelerationRate="fast"
         horizontal
-        keyExtractor={(item: any) => `page__${item.name}`}
+        keyExtractor={(item: any) => `page__${item.username}`}
         onScroll={onScroll}
         pagingEnabled
-        renderItem={renderItem}
+        renderItem={({ item, index }) => renderItem(item, index)}
         snapToInterval={pageWidth + gap}
         snapToAlignment="start"
         showsHorizontalScrollIndicator={false}
       />
-      {/* <IndicatorWrapper>
-        {Array.from({ length: items.length }, (_, i) => i).map((i) => (
-          <Indicator key={`indicator_${i}`} focused={i === page} />
-        ))}
-      </IndicatorWrapper> */}
     </Container>
   );
 }

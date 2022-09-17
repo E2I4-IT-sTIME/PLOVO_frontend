@@ -67,6 +67,8 @@ export default function PloggingCardLayout(props: PloggingCardRecord) {
     }
   }, []);
 
+  const share = () => {};
+
   return (
     <Container>
       <ViewShot
@@ -90,7 +92,10 @@ export default function PloggingCardLayout(props: PloggingCardRecord) {
         <MyButton style={{ marginRight: 10 }} onPress={() => goBack()}>
           <AntDesign name="back" size={26} color="white" />
         </MyButton>
-        <MyButton onPress={() => capture()}>
+        <MyButton style={{ marginRight: 10 }} onPress={() => capture()}>
+          <Feather name="download" size={26} color="white" />
+        </MyButton>
+        <MyButton onPress={() => share()}>
           <Feather name="download" size={26} color="white" />
         </MyButton>
       </Buttons>

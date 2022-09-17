@@ -3,78 +3,92 @@ import { Text, ScrollView } from "react-native";
 import styled from "styled-components/native";
 import BestPloggerCarousel from "./BestPloggerCarousel";
 import CertificationLayout from "./CertificationLayout";
+import axios from "axios";
 
 interface Plogger {
-  rank: number;
-  profileImg: string;
-  name: string;
+  profile_img: string;
+  username: string;
 }
 
-const dummyPlogger: Array<Plogger> = [
-  {
-    rank: 1,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "고슴도치",
-  },
-  {
-    rank: 2,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "고",
-  },
-  {
-    rank: 3,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "ㅅ므",
-  },
-  {
-    rank: 4,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "도",
-  },
-  {
-    rank: 5,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "치",
-  },
-  {
-    rank: 6,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "고슴",
-  },
-  {
-    rank: 7,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "도치",
-  },
-  {
-    rank: 8,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "고도",
-  },
-  {
-    rank: 9,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "슴치",
-  },
-  {
-    rank: 10,
-    profileImg:
-      "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
-    name: "고슴도",
-  },
-];
+interface RecentPlog {
+  distance: string;
+  mimage: string;
+  mname: string;
+  time: string;
+  weight: number;
+}
+
+interface SocailObject {
+  bestPlogger: Array<Plogger>;
+  recentPlog: Array<RecentPlog>;
+}
+
+// const dummyPlogger: Array<Plogger> = [
+//   {
+//     rank: 1,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "고슴도치",
+//   },
+//   {
+//     rank: 2,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "고",
+//   },
+//   {
+//     rank: 3,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "ㅅ므",
+//   },
+//   {
+//     rank: 4,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "도",
+//   },
+//   {
+//     rank: 5,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "치",
+//   },
+//   {
+//     rank: 6,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "고슴",
+//   },
+//   {
+//     rank: 7,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "도치",
+//   },
+//   {
+//     rank: 8,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "고도",
+//   },
+//   {
+//     rank: 9,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "슴치",
+//   },
+//   {
+//     rank: 10,
+//     profileImg:
+//       "http://file3.instiz.net/data/file3/2018/01/30/7/6/a/76a98bce9e4e4d5bb321be80a84c0982.jpg",
+//     name: "고슴도",
+//   },
+// ];
 
 export default function SocailLayout() {
   const [curMonth, setCurMonth] = useState(0);
+  const [socialData, setSocialData] = useState<SocailObject>();
 
   const getTodayMonth = () => {
     const today = new Date(); // today 객체에 Date()의 결과를 넣어줬다
@@ -82,8 +96,21 @@ export default function SocailLayout() {
     setCurMonth(month);
   };
 
+  const getSocialData = () => {
+    axios
+      .get("http://52.78.4.217:8080/social")
+      .then((res) => {
+        setSocialData(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getTodayMonth();
+    getSocialData();
   }, []);
 
   return (
@@ -92,7 +119,11 @@ export default function SocailLayout() {
         <Title>
           <Text style={{ color: "#277BC0" }}>{curMonth}월</Text>의 베스트 플로거
         </Title>
-        <BestPloggerCarousel items={dummyPlogger} />
+        {socialData ? (
+          <BestPloggerCarousel items={socialData.bestPlogger} />
+        ) : (
+          <></>
+        )}
       </Box>
       <Box>
         <Title>실시간 플로깅 인증</Title>

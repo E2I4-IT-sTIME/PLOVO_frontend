@@ -26,6 +26,31 @@ interface PloggingCardRecord {
   routeImg: string;
 }
 
+interface RecordObject {
+  profileImg: string;
+  timeAndWeightRes: Array<ChartData>;
+}
+
+interface ChartData {
+  day: number;
+  month: string;
+  time: string;
+  weight: string;
+}
+
+// {
+//   "profileImg": "string",
+//   "timeAndWeightRes": [
+//     {
+//       "day": 0,
+//       "month": 0,
+//       "time": "string",
+//       "weight": "string"
+//     }
+//   ],
+//   "username": "string"
+// }
+
 const dummyMyName = "중규리";
 const dummyMyProfile = "";
 
