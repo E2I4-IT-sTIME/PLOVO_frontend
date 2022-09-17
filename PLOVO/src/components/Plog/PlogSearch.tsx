@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import MyButton from "../Res/MyButton";
 import { Dispatch, SetStateAction, useState } from "react";
 import SearchResult from "./SearchResult";
+import axios from "axios";
 
 interface stageProps {
   setStage: Dispatch<SetStateAction<number>>;
@@ -10,8 +11,11 @@ interface stageProps {
 }
 
 interface Result {
-  name: string;
-  weight: string;
+  distance: string;
+  mimage: string;
+  mname: string;
+  time: string;
+  weight: number;
 }
 
 export default function PlogSearch(props: stageProps) {
@@ -22,7 +26,7 @@ export default function PlogSearch(props: stageProps) {
   const [choice, setChoice] = useState("");
   const search = () => {
     if (keyword.length > 1) {
-      //검색
+      searching();
       setKeyword("");
       setErr(`${keyword}의 검색결과입니다.`);
     } else {
@@ -37,6 +41,24 @@ export default function PlogSearch(props: stageProps) {
       moveToPlogging(choice);
       setChoice("");
     }
+  };
+
+  const searching = () => {
+    axios
+      .get("http://52.78.4.217:8080/mountain/search", {
+        params: { mName: keyword },
+      })
+      .then((res) => {
+        console.log(res);
+        setResults(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const selectHandler = (name: string) => {
+    setChoice(name);
   };
 
   const alert = () =>
@@ -65,10 +87,10 @@ export default function PlogSearch(props: stageProps) {
         </SearchBox>
         {err === "" ? <></> : <ErrMsg>{err}</ErrMsg>}
       </CoverBox>
-      <SearchResult resultArray={results} />
+      <SearchResult resultArray={results} selectHandler={selectHandler} />
       <ButtonBox>
         <MyButton
-          title="이 산으로 할게요"
+          title={choice === "" ? "이 산으로 할게요" : `${choice}으로 할게요`}
           onPress={() => moveBtnClickHandler()}
         />
         <MyButton title="추천해주세요" onPress={() => setStage(2)} />

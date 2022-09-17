@@ -2,19 +2,29 @@ import React from "react";
 import { Alert, View } from "react-native";
 import { WebView } from "react-native-webview";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StackScreenProps } from "@react-navigation/stack";
+import { RootStackParamList } from "../Res/RootStackParamList";
+
+export type HomeScreenProps = StackScreenProps<
+  RootStackParamList,
+  "KakaoLogin"
+>;
 
 // other import settings...
 const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
 
-const KakaoLogin = ({ navigation }: any) => {
+const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
   const id = "b9f6eaeb47ed2f08476461345671880c";
   const url = "http://52.78.4.217:8080/api/code";
 
-  const LogInProgress = (data: any) => {
-    // access code는 url에 붙어 장황하게 날아온다.
-    // substringd으로 url에서 code=뒤를 substring하면 된다.
-    //console.log(data);
+  const storeData = async (jwt: string) => {
+    try {
+      await AsyncStorage.setItem("token", JSON.stringify(jwt));
+    } catch (e) {}
+  };
 
+  const LogInProgress = (data: any) => {
     const exp = "code=";
 
     var condition = data.indexOf(exp);
@@ -22,10 +32,7 @@ const KakaoLogin = ({ navigation }: any) => {
 
     if (condition != -1) {
       var request_code = data.substring(condition + exp.length);
-       console.log("access code :: " + request_code);
-       console.log("제발", data);
       requestToken(request_code);
-      // tmpFetch();
     }
   };
 
@@ -45,24 +52,11 @@ const KakaoLogin = ({ navigation }: any) => {
     })
       .then(function (response) {
         returnValue = response.data.access_token;
-        // console.log("통신 성공", returnValue);
-        // sendTokenToServer(returnValue);
-        sessionTest(returnValue);
+        sendTokenToServer(returnValue);
       })
       .catch(function (error) {
         console.log("통신 실패 처음", error);
       });
-
-    // axios({
-    //   method: "get",
-    //   url: request_code,
-    // })
-    //   .then((response) => {
-    //     console.log("통신 성공", response);
-    //   })
-    //   .catch((error) => {
-    //     console.log("통신 실패", error);
-    //   });
   };
 
   const sendTokenToServer = (token: string) => {
@@ -74,27 +68,18 @@ const KakaoLogin = ({ navigation }: any) => {
       },
     })
       .then((response) => {
-        const jwt = response.data;
-        console.log("통신 성공 찐", jwt);
+        const check = response.data.isExist;
+        const jwt = response.data.jwtToken;
+        if (check) {
+          navigation.reset({ routes: [{ name: "SignUp" }] });
+          storeData(jwt);
+        } else {
+          navigation.reset({ routes: [{ name: "Main" }] });
+          storeData(jwt);
+        }
       })
       .catch((error) => {
         console.log("통신 실패 센드토큰투서버", error);
-      });
-  };
-
-  const sessionTest = (token: string) => {
-    axios({
-      method: "get",
-      url: `http://52.78.4.217:8080/auth/test`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        console.log("통신 성공 테스트", response);
-      })
-      .catch((error) => {
-        console.log("통신 실패 테스트", error);
       });
   };
 

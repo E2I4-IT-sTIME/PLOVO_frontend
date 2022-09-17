@@ -3,6 +3,8 @@ import { Pressable, Animated, Vibration } from "react-native";
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
+import PloggingMap from "./PloggingMap";
+
 interface timerProps {
   setLoading: Dispatch<SetStateAction<number>>;
   setTime: Dispatch<SetStateAction<string>>;
@@ -90,6 +92,9 @@ export default function PloggingTimer(props: timerProps) {
         <Notice>알고계셨나요?</Notice>
         <Quotes>{quotes}</Quotes>
       </QuotesBox>
+      {/* <MapBox>
+        <PloggingMap />
+      </MapBox> */}
       <ControlBox>
         <Pressable>
           <FontAwesome
@@ -197,4 +202,10 @@ const ControlBox = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+`;
+
+const MapBox = styled.View`
+  width: 60%;
+  height: 300px;
+  border-radius: 10px;
 `;
