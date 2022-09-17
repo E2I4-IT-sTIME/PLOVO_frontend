@@ -9,7 +9,7 @@ import {
   SubTitle,
 } from "../../Res/PloggingView";
 import { useState, Dispatch, SetStateAction, useEffect, useRef } from "react";
-import { Dimensions, Animated } from "react-native";
+import { Dimensions, Animated, Alert } from "react-native";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 const screenHeight = Math.round(Dimensions.get("window").height);
@@ -47,6 +47,12 @@ export default function ToWeighPlovo(props: weighProps) {
     });
   };
 
+  const reportHandler = () => {
+    Alert.alert("기계 이상 신고", "신고가 접수되었습니다.", [
+      { text: "닫기", onPress: () => {} },
+    ]);
+  };
+
   return (
     <Container style={{ opacity: animation }}>
       <UpperBox>
@@ -67,7 +73,7 @@ export default function ToWeighPlovo(props: weighProps) {
         <PinkButton onPress={() => fadeOut()}>
           <WhiteText>플로보 CLOSE</WhiteText>
         </PinkButton>
-        <WhiteButton>
+        <WhiteButton onPress={() => reportHandler()}>
           <PinkText>기계 이상 신고</PinkText>
         </WhiteButton>
       </ButtonBox>

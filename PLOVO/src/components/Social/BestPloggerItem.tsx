@@ -2,27 +2,27 @@ import styled from "styled-components/native";
 import { ViewStyle } from "react-native";
 
 interface Plogger {
-  rank: number;
-  profileImg: string;
-  name: string;
+  profile_img: string;
+  username: string;
 }
 
 interface IPage {
   item: Plogger;
   style: ViewStyle;
+  index: number;
 }
 
 export default function BestPloggerItem(props: IPage) {
-  const { item, style } = props;
+  const { item, style, index } = props;
   return (
     <UploadedImgBox style={style}>
-      <UploadedImg source={{ uri: item.profileImg }} resizeMode="cover">
+      <UploadedImg source={{ uri: item.profile_img }} resizeMode="cover">
         <InnerFrame>
           <WaterMarkText style={{ fontSize: 18, top: 10, left: 10 }}>
-            {item.rank}위
+            {index + 1}위
           </WaterMarkText>
           <WaterMarkText style={{ fontSize: 22, bottom: 10, right: 10 }}>
-            {item.name}
+            {item.username}
           </WaterMarkText>
         </InnerFrame>
       </UploadedImg>

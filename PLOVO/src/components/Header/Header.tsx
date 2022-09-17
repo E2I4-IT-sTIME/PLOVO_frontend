@@ -18,11 +18,11 @@ const dummyMyProfile =
 export default function Header(props: headerProps) {
   const { title, color } = props;
   const [isBarVisible, setIsBarVisible] = useState(false);
-  const onPressHandler = () =>{
+  const onPressHandler = () => {
     setIsBarVisible((prev) => {
-      return !prev
-    })
-  }
+      return !prev;
+    });
+  };
 
   const GradientText = (props: any) => {
     return (
@@ -47,19 +47,25 @@ export default function Header(props: headerProps) {
 
   return (
     <>
-    <HeaderBox>
-      {color ? (
-        <Title>{title}</Title>
-      ) : (
-        <NoRecordHeader>
-          <MyProfile source={{ uri: dummyMyProfile }} resizeMode="cover" />
-          <GradientText>{title}</GradientText>
-          <TouchableOpacity onPress={() => {onPressHandler()}}><Ionicons name="menu" size={30} color="black" /></TouchableOpacity>      
-        </NoRecordHeader>
-      )}
-    </HeaderBox>
-     {isBarVisible && <Sidebar onPressHandler={onPressHandler} />}
-     </>
+      <HeaderBox>
+        {color ? (
+          <Title>{title}</Title>
+        ) : (
+          <NoRecordHeader>
+            {/* <MyProfile source={{ uri: dummyMyProfile }} resizeMode="cover" /> */}
+            <GradientText>{title}</GradientText>
+            <TouchableOpacity
+              onPress={() => {
+                onPressHandler();
+              }}
+            >
+              <Ionicons name="menu" size={30} color="black" />
+            </TouchableOpacity>
+          </NoRecordHeader>
+        )}
+      </HeaderBox>
+      {isBarVisible && <Sidebar onPressHandler={onPressHandler} />}
+    </>
   );
 }
 

@@ -1,51 +1,34 @@
 import styled from "styled-components/native";
 import { ViewStyle } from "react-native";
 
-interface PloggingCardRecord {
-  time: string;
-  distance: number;
-  weight: number;
-  name: string;
-  img: string;
-  routeImg: string;
-}
-
-interface cardProps {
-  time: string;
+interface RecordData {
   date: string;
-  distance: number;
-  weight: number;
-  name: string;
-  img: string;
+  distance: string;
+  mname: string;
+  profileImg: string;
+  time: string;
+  uploadImg: string;
+  weight: string;
 }
 
 interface IPage {
-  item: cardProps;
+  item: RecordData;
   myProfile: string;
   style: ViewStyle;
-  goToCard: (object: PloggingCardRecord) => void;
+  goToCard: (object: RecordData) => void;
 }
 
 export default function RecordCardItem(props: IPage) {
   const { item, myProfile, style, goToCard } = props;
 
-  const thisRecord: PloggingCardRecord = {
-    time: item.time,
-    distance: item.distance,
-    weight: item.weight,
-    name: item.name,
-    img: item.img,
-    routeImg: "https://cdn-icons-png.flaticon.com/512/96/96643.png", //이거 수정해야함
-  };
-
   return (
-    <UploadedImgBox style={style} onPress={() => goToCard(thisRecord)}>
-      <UploadedImg source={{ uri: item.img }} resizeMode="cover">
+    <UploadedImgBox style={style} onPress={() => goToCard(item)}>
+      <UploadedImg source={{ uri: item.uploadImg }} resizeMode="cover">
         <InnerFrame>
-          <WaterMarkText>{item.distance} km</WaterMarkText>
-          <WaterMarkText>{item.time}</WaterMarkText>
-          <WaterMarkText>{item.weight} g</WaterMarkText>
-          <WaterMarkText style={{ marginTop: 7 }}>{item.name}</WaterMarkText>
+          <WaterMarkText>{item.distance ? item.distance : 0} km</WaterMarkText>
+          <WaterMarkText>{item.time ? item.time : "00:00:00"}</WaterMarkText>
+          <WaterMarkText>{item.weight ? item.weight : 0} g</WaterMarkText>
+          <WaterMarkText style={{ marginTop: 7 }}>{item.mname}</WaterMarkText>
           <Logo source={require("../../../assets/logo_title.png")} />
           <MyProfile source={{ uri: myProfile }} resizeMode="cover" />
         </InnerFrame>

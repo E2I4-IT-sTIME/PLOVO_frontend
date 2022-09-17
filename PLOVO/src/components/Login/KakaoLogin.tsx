@@ -5,6 +5,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../Res/RootStackParamList";
+import { id, url } from "../../../secret";
 
 export type HomeScreenProps = StackScreenProps<
   RootStackParamList,
@@ -15,9 +16,6 @@ export type HomeScreenProps = StackScreenProps<
 const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
 
 const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
-  const id = "b9f6eaeb47ed2f08476461345671880c";
-  const url = "http://52.78.4.217:8080/api/code";
-
   const storeData = async (jwt: string) => {
     try {
       await AsyncStorage.setItem("token", JSON.stringify(jwt));
