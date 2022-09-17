@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import { WebView } from "react-native-webview";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,6 +28,7 @@ const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
     const exp = "code=";
 
     var condition = data.indexOf(exp);
+    console.log(condition);
 
     if (condition != -1) {
       var request_code = data.substring(condition + exp.length);
@@ -36,6 +37,7 @@ const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
   };
 
   const requestToken = async (request_code: string) => {
+    console.log("실행시행");
     var returnValue = "none";
     var request_token_url = "https://kauth.kakao.com/oauth/token";
     axios({
@@ -93,7 +95,7 @@ const KakaoLogin = ({ navigation, route }: HomeScreenProps) => {
         injectedJavaScript={runFirst}
         javaScriptEnabled={true}
         onMessage={(event) => {
-          LogInProgress(event.nativeEvent["url"]);
+          LogInProgress(event.nativeEvent.url);
         }}
       />
     </View>
