@@ -3,9 +3,11 @@ import styled from "styled-components/native";
 import { ViewStyle } from "react-native";
 
 interface RecommendCard {
-  name: string; //산이름
+  mname: string; //산이름
   weight: string; //플로보 현재 무게
-  rank: number;
+  distance: string;
+  mimage: string;
+  time: string;
 }
 
 interface Color {
@@ -16,35 +18,36 @@ interface Color {
 
 interface IPage {
   item: RecommendCard;
+  index: number;
   color: Color;
   style: ViewStyle;
 }
 
 export default function Page(props: IPage) {
-  const { item, color, style } = props;
+  const { item, index, color, style } = props;
   return (
     <PageItem style={style}>
       <CircleBox>
-        {item.rank === 0 ? (
+        {index === 0 ? (
           <Circle source={require("../../../assets/green.png")} />
-        ) : item.rank === 1 ? (
+        ) : index === 1 ? (
           <Circle source={require("../../../assets/blue.png")} />
-        ) : item.rank === 2 ? (
+        ) : index === 2 ? (
           <Circle source={require("../../../assets/yellow.png")} />
-        ) : item.rank === 3 ? (
+        ) : index === 3 ? (
           <Circle source={require("../../../assets/pink.png")} />
-        ) : item.rank === 4 ? (
+        ) : index === 4 ? (
           <Circle source={require("../../../assets/purple.png")} />
         ) : (
           <></>
         )}
-        <Mountain color={color.mainColor}>{item.name}</Mountain>
+        <Mountain color={color.mainColor}>{item.mname}</Mountain>
       </CircleBox>
       <InfoBox>
         <Title>산 이름</Title>
-        <Info>{item.name}</Info>
+        <Info>{item.mname}</Info>
         <Title>현재 플로보 무게</Title>
-        <Info>{item.weight}kg</Info>
+        <Info>{item.weight} g</Info>
       </InfoBox>
     </PageItem>
   );

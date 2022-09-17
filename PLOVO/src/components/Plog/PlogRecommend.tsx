@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import styled from "styled-components/native";
 import MyButton from "../Res/MyButton";
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { Dimensions } from "react-native";
 import PlogRecommendCarousel from "./PlogRecommendCarousel";
+import axios from "axios";
 
 interface stageProps {
   setStage: Dispatch<SetStateAction<number>>;
@@ -11,43 +12,69 @@ interface stageProps {
 }
 
 interface RecommendCard {
-  name: string; //산이름
+  mname: string; //산이름
   weight: string; //플로보 현재 무게
-  rank: number;
+  distance: string;
+  mimage: string;
+  time: string;
 }
-
-const dummy: Array<RecommendCard> = [
-  { name: "북한산", weight: "0.1", rank: 0 },
-  { name: "설악산", weight: "0.2", rank: 1 },
-  { name: "지리산", weight: "0.3", rank: 2 },
-  { name: "한라산", weight: "0.4", rank: 3 },
-  { name: "백두산", weight: "0.5", rank: 4 },
-];
 
 export default function PlogRecommend(props: stageProps) {
   const { setStage, moveToPlogging } = props;
+  const [recommendList, setRecommendList] = useState<Array<RecommendCard>>();
   const screenWidth = Math.round(Dimensions.get("window").width);
   const screenHeight = Math.round(Dimensions.get("window").height);
   const [page, setPage] = useState(0);
 
+  const getMonutainRecommend = () => {
+    axios
+      .get("http://52.78.4.217:8080/mountain/recommend", {
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+      })
+      .then((res) => {
+        const list: Array<RecommendCard> = res.data;
+        if (list.length > 5) {
+          setRecommendList(list.slice(0, 4));
+        } else {
+          setRecommendList(list);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getMonutainRecommend();
+  }, []);
+
   return (
     <Container screenHeight={screenHeight}>
       <Title>{"지금 플로깅하기 좋은\n산이에요"}</Title>
-      <PlogRecommendCarousel
-        gap={28}
-        offset={20}
-        pages={dummy}
-        pageWidth={screenWidth - (28 + 20) * 2}
-        page={page}
-        setPage={setPage}
-      />
-      <ButtonBox>
-        <MyButton
-          title={`${dummy[page].name}으로 할게요`}
-          onPress={() => moveToPlogging(dummy[page].name)}
-        />
-        <MyButton title="직접 검색할게요" onPress={() => setStage(1)} />
-      </ButtonBox>
+      {recommendList ? (
+        <>
+          <PlogRecommendCarousel
+            gap={28}
+            offset={20}
+            pages={recommendList}
+            pageWidth={screenWidth - (28 + 20) * 2}
+            page={page}
+            setPage={setPage}
+          />
+          <ButtonBox>
+            <MyButton
+              title={`${recommendList[page].mname}으로 할게요`}
+              onPress={() => moveToPlogging(recommendList[page].mname)}
+            />
+            <MyButton title="직접 검색할게요" onPress={() => setStage(1)} />
+          </ButtonBox>
+        </>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }

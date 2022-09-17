@@ -4,9 +4,11 @@ import styled from "styled-components/native";
 import CarouselCard from "./CarouselCard";
 
 interface RecommendCard {
-  name: string; //산이름
+  mname: string; //산이름
   weight: string; //플로보 현재 무게
-  rank: number;
+  distance: string;
+  mimage: string;
+  time: string;
 }
 
 interface carouselProps {
@@ -54,15 +56,17 @@ const colors: Array<Color> = [
 
 export default function PlogRecommendCarousel(props: carouselProps) {
   const { gap, offset, pages, pageWidth, page, setPage } = props;
-  function renderItem({ item }: any) {
+
+  const renderItem = (item: any, index: number) => {
     return (
       <CarouselCard
         item={item}
-        color={colors[item.rank]}
+        index={index}
+        color={colors[index]}
         style={{ width: pageWidth, marginHorizontal: gap / 2 }}
       />
     );
-  }
+  };
 
   const onScroll = (e: any) => {
     const newPage = Math.round(
@@ -81,10 +85,10 @@ export default function PlogRecommendCarousel(props: carouselProps) {
         data={pages}
         decelerationRate="fast"
         horizontal
-        keyExtractor={(item: any) => `page__${item.name}`}
+        keyExtractor={(item: any) => `page__${item.mname}`}
         onScroll={onScroll}
         pagingEnabled
-        renderItem={renderItem}
+        renderItem={({ item, index }) => renderItem(item, index)}
         snapToInterval={pageWidth + gap}
         snapToAlignment="start"
         showsHorizontalScrollIndicator={false}
