@@ -4,7 +4,7 @@
     "slug": "PLOVO",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/mainicon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -22,9 +22,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/mainicon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.PLOVO"
     },
     "web": {
       "favicon": "./assets/favicon.png"
