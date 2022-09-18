@@ -3353,6 +3353,7 @@
   dependencies:
     "@expo/config-plugins" "~5.0.0"
 
+<<<<<<< HEAD
 "expo-manifests@~0.3.0":
   "integrity" "sha512-zv2a4pzhbvxVjrTO4XEiP5THt4RwtxyJjfixFhDNfHtDQR7fS4h9sZSGX9ind+IS5SQJQ2ykfVAi8xnwP6zHaw=="
   "resolved" "https://registry.npmjs.org/expo-manifests/-/expo-manifests-0.3.1.tgz"
@@ -3360,6 +3361,8 @@
   dependencies:
     "expo-json-utils" "~0.3.0"
 
+=======
+>>>>>>> 16af3be6b557448708b11fbe0ede6a12f345cdd9
 "expo-media-library@^14.2.0":
   "integrity" "sha512-Z7PFo742oCUDBXkSkz7yqveiRxYxAuxeYOWS6khnEJg0wMghJg1NeSyObFKkfOLEqItbFUJ8r6wi+B97ZGmiFA=="
   "resolved" "https://registry.npmjs.org/expo-media-library/-/expo-media-library-14.2.0.tgz"
