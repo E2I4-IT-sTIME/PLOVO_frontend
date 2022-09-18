@@ -11,12 +11,17 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
+import axios from "axios";
+import FormData from "form-data";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface resultProps {
   moveToMain: () => void;
   name: string;
   time: string;
   weight: number;
+  distance: string;
+  recordId: number;
 }
 
 const dummyDistance = 4.8;
@@ -25,7 +30,7 @@ const dummyMyProfile =
 const dummyChart = [10, 5, 3, 1, 6, 7];
 
 export default function PloggingResult(props: resultProps) {
-  const { moveToMain, name, time, weight } = props;
+  const { moveToMain, name, time, weight, distance, recordId } = props;
   const animation = useRef(new Animated.Value(0)).current;
   const [curMon, setCurMon] = useState(0);
   const [chartMons, setChartMons] = useState<Array<number>>();
@@ -33,6 +38,17 @@ export default function PloggingResult(props: resultProps) {
   const [date, setDate] = useState("");
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
   const [imageUrl, setImageUrl] = useState("");
+  const [token, setToken] = useState("");
+
+  const getData = async () => {
+    try {
+      const loadedData = await AsyncStorage.getItem("token");
+      const token = loadedData ? JSON.parse(loadedData) : "";
+      setToken(token);
+    } catch (e) {
+      console.log("토큰 불러오기 실패");
+    }
+  };
 
   const getDate = () => {
     const today = new Date(); // today 객체에 Date()의 결과를 넣어줬다
@@ -71,6 +87,31 @@ export default function PloggingResult(props: resultProps) {
     // 이미지 업로드 결과 및 이미지 경로 업데이트
     console.log(result);
     setImageUrl(result.uri);
+
+    // 서버에 요청 보내기
+    const localUri = result.uri;
+    const filename = localUri.split("/").pop();
+    const match = /\.(\w+)$/.exec(filename ?? "");
+    const type = match ? `image/${match[1]}` : `image`;
+    const formData = new FormData();
+    formData.append("image", { uri: localUri, name: filename, type });
+    formData.append("userRecord_id", recordId);
+
+    await axios({
+      method: "post",
+      url: "http://52.78.4.217:8080/auth/plog/image",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data",
+      },
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const ratioCalculator = () => {
@@ -83,6 +124,7 @@ export default function PloggingResult(props: resultProps) {
 
   useEffect(() => {
     getDate();
+    getData();
     ratioCalculator();
     fadeIn();
   }, []);
@@ -110,6 +152,23 @@ export default function PloggingResult(props: resultProps) {
     }).start();
   };
 
+  const finishHandler = () => {
+    axios
+      .get("http://52.78.4.217:8080/auth/plog/weight", {
+        params: { time: time, userRecord_id: recordId },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("플로깅정상종료");
+        moveToMain();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Container style={{ opacity: animation }}>
       <ContainerBox>
@@ -131,7 +190,7 @@ export default function PloggingResult(props: resultProps) {
           </TitleBox>
         </LinearGradient>
         <View style={{ marginTop: 30, paddingLeft: 5 }}>
-          <Info>거리 {dummyDistance} km</Info>
+          <Info>거리 {distance} km</Info>
           <Info>시간 {time}</Info>
           <Info>무게 {weight} g</Info>
         </View>
@@ -215,7 +274,7 @@ export default function PloggingResult(props: resultProps) {
           </Chart>
         </ChartBox>
         <ButtonBox style={{ marginTop: 50 }}>
-          <PinkButton onPress={() => moveToMain()}>
+          <PinkButton onPress={() => finishHandler()}>
             <WhiteText>플로깅 마치기</WhiteText>
           </PinkButton>
           <WhiteButton>

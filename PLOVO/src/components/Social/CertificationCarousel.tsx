@@ -56,7 +56,9 @@ export default function CertificationCarousel(props: certProps) {
           data={items}
           decelerationRate="fast"
           horizontal
-          keyExtractor={(item: PloggingRecord) => `page__${item.img}`}
+          keyExtractor={(item: PloggingRecord) =>
+            `page__${item.date}${item.time}${item.img}${item.name}${item.profile}`
+          }
           onScroll={onScroll}
           pagingEnabled
           renderItem={renderItem}

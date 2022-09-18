@@ -12,11 +12,12 @@ import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import PlovoImgCarousel from "./PlovoImgCarousel";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 interface imgProps {
   setPlovo: Dispatch<SetStateAction<number>>;
   name: string;
-  recordId: number;
+  plovoId: number;
 }
 
 const dummy: Array<string> = [
@@ -28,7 +29,7 @@ const dummy: Array<string> = [
 ];
 
 export default function ToFindPlovoImg(props: imgProps) {
-  const { setPlovo, name, recordId } = props;
+  const { setPlovo, name, plovoId } = props;
   const [imgList, setImgList] = useState<Array<string>>();
 
   const getData = async () => {
@@ -44,14 +45,14 @@ export default function ToFindPlovoImg(props: imgProps) {
   const getPlovoImgs = (token: string) => {
     axios
       .get("http://52.78.4.217:8080/auth/plog/site", {
-        params: { plovo_id: recordId },
+        params: { plovo_id: plovoId },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         console.log("데이터받기성공");
-        console.log(res.data);
+        setImgList(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -62,6 +63,12 @@ export default function ToFindPlovoImg(props: imgProps) {
     getData();
   }, []);
 
+  const reportHandler = () => {
+    Alert.alert("플로보 위치 문의", "문의가 접수되었습니다.", [
+      { text: "닫기", onPress: () => {} },
+    ]);
+  };
+
   return (
     <Container>
       <TitleBox>
@@ -70,12 +77,12 @@ export default function ToFindPlovoImg(props: imgProps) {
           {"플로보 위치를\n확인해주세요."}
         </Title>
       </TitleBox>
-      <PlovoImgCarousel imgs={dummy} />
+      {imgList ? <PlovoImgCarousel imgs={imgList} /> : <></>}
       <ButtonBox>
         <PinkButton onPress={() => setPlovo(2)}>
           <WhiteText>찾았어요!</WhiteText>
         </PinkButton>
-        <WhiteButton>
+        <WhiteButton onPress={() => reportHandler()}>
           <PinkText>문의하기</PinkText>
         </WhiteButton>
       </ButtonBox>

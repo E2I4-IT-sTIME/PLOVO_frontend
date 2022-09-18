@@ -28,7 +28,7 @@ const HomeLayout = () => {
         },
       });
       if (res.status == 200) {
-        console.log(res.data);
+        //console.log(res.data);
         setMountainResList(res.data.getMountainResList);
         setRecentPlovos(res.data.getRecentPlovos);
       }
