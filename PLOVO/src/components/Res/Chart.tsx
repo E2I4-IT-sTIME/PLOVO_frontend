@@ -11,7 +11,10 @@ interface chartProps {
 export default function Chart(props: chartProps) {
   const { points, values, backgroundColor, pointColor, textColor } = props;
   const max = Math.max(...values);
-  const heights: Array<number> = values.map((value) => value / max);
+  const heights: Array<number> = values.map((value) =>
+    max === 0 ? value : value / max
+  );
+
   return (
     <ChartBox style={{ marginTop: 10 }} backgroundColor={backgroundColor}>
       {points.map((mon, index) => (

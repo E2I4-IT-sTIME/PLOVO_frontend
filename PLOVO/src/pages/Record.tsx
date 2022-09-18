@@ -7,6 +7,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../components/Res/RootStackParamList";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { RefreshControl } from "react-native";
 
 export type PlogScreenProps = StackScreenProps<RootStackParamList, "Record">;
 
@@ -54,6 +55,15 @@ interface RecordData {
 //네비게이션 네 번째인 Record 부분을 담당할 페이지
 export default function Record({ navigation }: PlogScreenProps) {
   const [record, setRecord] = useState<RecordObject>();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      getData();
+      setRefreshing(false);
+    }, 2000);
+  };
 
   const goToPlog = () => {
     navigation.navigate("Plog");
@@ -63,7 +73,7 @@ export default function Record({ navigation }: PlogScreenProps) {
     navigation.navigate("PloggingCard", {
       img: object.uploadImg,
       name: object.mname,
-      distance: Number(object.distance),
+      distance: object.distance,
       weight: Number(object.weight),
       time: object.time,
       routeImg: "",
@@ -101,7 +111,11 @@ export default function Record({ navigation }: PlogScreenProps) {
   }, []);
 
   return (
-    <Container>
+    <Container
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <Header title={"MY RECORD"} color={false} />
       {record ? (
         record.userUploadImgRes.length === 0 ? (

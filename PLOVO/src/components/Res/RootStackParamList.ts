@@ -8,7 +8,7 @@ export type RootStackParamList = {
   PloggingCard: {
     img: string;
     name: string;
-    distance: number;
+    distance: string;
     weight: number;
     time: string;
     routeImg: string; //경로 이미지

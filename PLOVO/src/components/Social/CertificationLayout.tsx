@@ -4,8 +4,8 @@ import styled from "styled-components/native";
 interface PloggingRecord {
   time: string;
   date: string;
-  distance: number;
-  weight: number;
+  distance: string;
+  weight: string;
   name: string;
   img: string;
   profile: string;

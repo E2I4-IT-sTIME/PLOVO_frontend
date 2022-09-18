@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import RecordCardCarousel from "./RecordCardCarousel";
 import Chart from "../Res/Chart";
+import { useState, useEffect } from "react";
 
 interface recordProps {
   myName: string;
@@ -32,7 +33,8 @@ export default function RecordLayout(props: recordProps) {
   const points = timeAndWeightRes.map((data, index) => Number(data.month));
   const times = timeAndWeightRes.map((data, index) => Number(data.time));
   const weights = timeAndWeightRes.map((data, index) => Number(data.weight));
-
+  console.log("여기아래부터");
+  console.log(timeAndWeightRes);
   return (
     <Container>
       <Title>{`${myName}님의,\n플로깅 기록이에요.`}</Title>
@@ -68,7 +70,7 @@ export default function RecordLayout(props: recordProps) {
 const Container = styled.View`
   width: 100%;
   justify-content: space-around;
-  padding: 20px 0px;
+  padding: 00px 0px;
 `;
 
 const Title = styled.Text`

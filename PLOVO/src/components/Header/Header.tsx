@@ -64,7 +64,11 @@ export default function Header(props: headerProps) {
           </NoRecordHeader>
         )}
       </HeaderBox>
-      {isBarVisible && <Sidebar onPressHandler={onPressHandler} />}
+      {isBarVisible && title === "HOME" ? (
+        <Sidebar onPressHandler={onPressHandler} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

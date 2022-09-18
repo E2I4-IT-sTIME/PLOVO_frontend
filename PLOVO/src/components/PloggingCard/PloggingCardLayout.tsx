@@ -9,7 +9,7 @@ import * as Sharing from "expo-sharing";
 
 interface PloggingCardRecord {
   time: string;
-  distance: number;
+  distance: string;
   weight: number;
   name: string;
   img: string;
@@ -95,9 +95,6 @@ export default function PloggingCardLayout(props: PloggingCardRecord) {
         </MyButton>
         <MyButton style={{ marginRight: 10 }} onPress={() => capture()}>
           <Feather name="download" size={26} color="white" />
-        </MyButton>
-        <MyButton onPress={() => share()}>
-          <Entypo name="share-alternative" ize={26} color="white" />
         </MyButton>
       </Buttons>
     </Container>
