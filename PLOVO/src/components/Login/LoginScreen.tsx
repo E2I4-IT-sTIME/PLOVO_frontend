@@ -34,7 +34,7 @@ const LoginScreen = (props: loginProps) => {
             text="Sign in with Google"
             src={google}
             onPress={() => {
-              locate();
+              SignUpLocate();
             }}
             buttonStyle={styles.google}
           />
