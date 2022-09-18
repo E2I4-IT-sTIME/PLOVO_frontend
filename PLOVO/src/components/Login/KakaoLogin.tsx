@@ -7,7 +7,6 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { RootStackParamList } from "../Res/RootStackParamList";
 import { id, url } from "../../../secret";
 
-
 export type HomeScreenProps = StackScreenProps<
   RootStackParamList,
   "KakaoLogin"
