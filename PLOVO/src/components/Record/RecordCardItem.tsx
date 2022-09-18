@@ -25,7 +25,7 @@ export default function RecordCardItem(props: IPage) {
     <UploadedImgBox style={style} onPress={() => goToCard(item)}>
       <UploadedImg source={{ uri: item.uploadImg }} resizeMode="cover">
         <InnerFrame>
-          <WaterMarkText>{item.distance ? item.distance : 0} km</WaterMarkText>
+          <WaterMarkText>{item.distance ? item.distance : 0} </WaterMarkText>
           <WaterMarkText>{item.time ? item.time : "00:00:00"}</WaterMarkText>
           <WaterMarkText>{item.weight ? item.weight : 0} g</WaterMarkText>
           <WaterMarkText style={{ marginTop: 7 }}>{item.mname}</WaterMarkText>

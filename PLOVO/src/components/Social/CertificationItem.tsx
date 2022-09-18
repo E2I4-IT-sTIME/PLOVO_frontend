@@ -4,7 +4,7 @@ import { ViewStyle } from "react-native";
 interface cardProps {
   time: string;
   date: string;
-  distance: number;
+  distance: string;
   weight: number;
   name: string;
   img: string;
@@ -23,9 +23,9 @@ export default function CertificationItem(props: IPage) {
     <UploadedImgBox style={style}>
       <UploadedImg source={{ uri: item.img }} resizeMode="cover">
         <InnerFrame>
-          <WaterMarkText>{item.distance} km</WaterMarkText>
           <WaterMarkText>{item.time}</WaterMarkText>
-          <WaterMarkText>{item.weight} g</WaterMarkText>
+          <WaterMarkText>{item.weight}</WaterMarkText>
+          <WaterMarkText>{item.distance} g</WaterMarkText>
           <WaterMarkText style={{ marginTop: 7 }}>{item.name}</WaterMarkText>
           <Logo source={require("../../../assets/logo_title.png")} />
           <MyProfile source={{ uri: item.profile }} resizeMode="cover" />

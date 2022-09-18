@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Text, ScrollView } from "react-native";
+import { Text, ScrollView, RefreshControl } from "react-native";
 import styled from "styled-components/native";
 import BestPloggerCarousel from "./BestPloggerCarousel";
 import CertificationLayout from "./CertificationLayout";
 import axios from "axios";
+import Header from "../Header/Header";
 
 interface Plogger {
   profile_img: string;
@@ -29,8 +30,8 @@ interface SocailObject {
 interface PloggingRecord {
   time: string;
   date: string;
-  distance: number;
-  weight: number;
+  distance: string;
+  weight: string;
   name: string;
   img: string;
   profile: string;
@@ -49,6 +50,15 @@ export default function SocailLayout() {
   const [curMonth, setCurMonth] = useState(0);
   const [socialData, setSocialData] = useState<SocailObject>();
   const [certArray, setCertArray] = useState<Array<cert>>();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      getSocialData();
+      setRefreshing(false);
+    }, 2000);
+  };
 
   const getTodayMonth = () => {
     const today = new Date(); // today 객체에 Date()의 결과를 넣어줬다
@@ -78,8 +88,8 @@ export default function SocailLayout() {
         firstObject.push({
           time: data.time,
           date: data.time,
-          distance: Number(data.distance),
-          weight: Number(data.weight),
+          distance: data.distance,
+          weight: data.weight,
           name: data.mname,
           img: data.uploadImg,
           profile: data.userProfile,
@@ -93,8 +103,8 @@ export default function SocailLayout() {
         secondObject.push({
           time: data.time,
           date: data.time,
-          distance: Number(data.distance),
-          weight: Number(data.weight),
+          distance: data.distance,
+          weight: data.weight,
           name: data.mname,
           img: data.uploadImg,
           profile: data.userProfile,
@@ -108,8 +118,8 @@ export default function SocailLayout() {
         thirdObject.push({
           time: data.time,
           date: data.time,
-          distance: Number(data.distance),
-          weight: Number(data.weight),
+          distance: data.distance,
+          weight: data.weight,
           name: data.mname,
           img: data.uploadImg,
           profile: data.userProfile,
@@ -131,22 +141,30 @@ export default function SocailLayout() {
   }, [socialData]);
 
   return (
-    <Container>
-      <Box>
-        <Title>
-          <Text style={{ color: "#277BC0" }}>{curMonth}월</Text>의 베스트 플로거
-        </Title>
-        {socialData ? (
-          <BestPloggerCarousel items={socialData.bestPlogger} />
-        ) : (
-          <></>
-        )}
-      </Box>
-      <Box>
-        <Title>실시간 플로깅 인증</Title>
-        {certArray ? <CertificationLayout items={certArray} /> : <></>}
-      </Box>
-    </Container>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <Header title={"SOCIAL"} color={false} />
+      <Container>
+        <Box>
+          <Title>
+            <Text style={{ color: "#277BC0" }}>{curMonth}월</Text>의 베스트
+            플로거
+          </Title>
+          {socialData ? (
+            <BestPloggerCarousel items={socialData.bestPlogger} />
+          ) : (
+            <></>
+          )}
+        </Box>
+        <Box>
+          <Title>실시간 플로깅 인증</Title>
+          {certArray ? <CertificationLayout items={certArray} /> : <></>}
+        </Box>
+      </Container>
+    </ScrollView>
   );
 }
 

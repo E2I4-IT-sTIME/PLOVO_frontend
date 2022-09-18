@@ -4,7 +4,7 @@ import { StyleSheet, Dimensions } from "react-native";
 
 interface PloggingCardRecord {
   time: string;
-  distance: number;
+  distance: string;
   weight: number;
   name: string;
   img: string;
@@ -26,7 +26,7 @@ export default function PloggingCard(props: PloggingCardRecord) {
       >
         <InfoBox>
           <InfoName>{name}</InfoName>
-          <InfoText>{distance ? distance : 0} km</InfoText>
+          <InfoText>{distance ? distance : 0}</InfoText>
           <InfoText>{time ? time : "00 : 00 : 00"}</InfoText>
           <InfoText>{weight ? weight : 0} g</InfoText>
         </InfoBox>

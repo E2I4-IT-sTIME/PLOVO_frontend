@@ -14,6 +14,8 @@ export default function PloggingCard({
 }: PloggingScreenProps) {
   const { img, name, distance, weight, time, routeImg } = route.params;
 
+  console.log(distance);
+
   const goBack = () => [navigation.goBack()];
 
   return (
